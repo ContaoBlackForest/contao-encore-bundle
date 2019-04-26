@@ -1,0 +1,55 @@
+{
+    "name": "contaoblackforest/contao-encore-bundle",
+    "description": "Contao Encore Bundle",
+    "keywords": [
+        "contao",
+        "bundle",
+        "webpack",
+        "encore"
+    ],
+    "type": "contao-bundle",
+    "homepage": "https://github.com/contaoblackforest/contao-encore-bundle",
+    "license": "LGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Sven Baumann",
+            "email": "baumann.sv@gmail.com",
+            "homepage": "https://github.com/baumannsven",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "baumann.sv@gmail.com",
+        "issues": "https://github.com/contaoblackforest/contao-encore-bundle/issues",
+        "wiki": "https://github.com/contaoblackforest/contao-encore-bundle/wiki",
+        "irc": "irc://irc.freenode.org/contao.mm",
+        "source": "https://github.com/contaoblackforest/contao-encore-bundle"
+    },
+    "require": {
+        "php": "^7.1.3",
+        "contao/core-bundle": "^4.4",
+        "symfony/dependency-injection": "^3.3 || ^4.0",
+        "symfony/webpack-encore-bundle": "^1.5"
+    },
+    "require-dev": {
+        "phpcq/all-tasks": "^1.2",
+        "contao/manager-plugin": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "BlackForest\\Contao\\Encore\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BlackForest\\Contao\\Encore\\Test\\": "tests/Test"
+        }
+    },
+    "extra": {
+        "contao-manager-plugin": "BlackForest\\Contao\\Encore\\ContaoManager\\Plugin",
+        "branch-alias": {
+            "dev-master": "1.0.x-dev",
+            "dev-develop": "1.1.x-dev"
+        }
+    }
+}
