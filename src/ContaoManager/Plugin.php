@@ -40,14 +40,8 @@ class Plugin implements BundlePluginInterface
             BundleConfig::create(BlackForestContaoEncoreBundle::class)
                 ->setLoadAfter(
                     [
-                        ContaoCoreBundle::class
-                    ]
-                ),
-            BundleConfig::create(WebpackEncoreBundle::class)
-                ->setLoadAfter(
-                    [
                         ContaoCoreBundle::class,
-                        BlackForestContaoEncoreBundle::class
+                        WebpackEncoreBundle::class
                     ]
                 )
         ];
