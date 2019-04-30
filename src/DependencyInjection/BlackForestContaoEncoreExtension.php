@@ -17,25 +17,24 @@
  * @filesource
  */
 
-namespace BlackForest\Contao\Encore;
+namespace BlackForest\Contao\Encore\DependencyInjection;
 
-use BlackForest\Contao\Encore\DependencyInjection\Compiler\AddArgumentsPass;
-use Symfony\Component\DependencyInjection\Compiler\PassConfig;
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
- * The Bundle class.
+ * This loads configuration.
  */
-class BlackForestContaoEncoreBundle extends Bundle
+class BlackForestContaoEncoreExtension extends Extension
 {
     /**
      * {@inheritDoc}
      */
-    public function build(ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container)
     {
-        parent::build($container);
-
-        $container->addCompilerPass(new AddArgumentsPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION);
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader->load('table/layout_listener.yml');
     }
 }

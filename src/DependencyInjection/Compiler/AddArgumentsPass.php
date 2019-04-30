@@ -17,25 +17,28 @@
  * @filesource
  */
 
-namespace BlackForest\Contao\Encore;
+namespace BlackForest\Contao\Encore\DependencyInjection\Compiler;
 
-use BlackForest\Contao\Encore\DependencyInjection\Compiler\AddArgumentsPass;
-use Symfony\Component\DependencyInjection\Compiler\PassConfig;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * The Bundle class.
+ * This adds arguments from the definitions of webpack encore definitions.
  */
-class BlackForestContaoEncoreBundle extends Bundle
+class AddArgumentsPass implements CompilerPassInterface
 {
     /**
      * {@inheritDoc}
      */
-    public function build(ContainerBuilder $container)
+    public function process(ContainerBuilder $container)
     {
-        parent::build($container);
-
-        $container->addCompilerPass(new AddArgumentsPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION);
+        $container
+            ->getDefinition('cb.encore.table_layout_listener.encore_context_options')
+            ->replaceArgument(
+                0,
+                $container
+                    ->getDefinition('webpack_encore.entrypoint_lookup.cache_warmer')
+                    ->getArgument(0)
+            );
     }
 }
