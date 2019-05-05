@@ -17,6 +17,8 @@
  * @filesource
  */
 
+use BlackForest\Contao\Encore\Helper\EncoreConstants;
+
 /*
  * The translation for tl_layout.
  */
@@ -32,6 +34,18 @@ $GLOBALS['TL_LANG']['tl_layout']['encoreContext'][0] = 'Context';
 $GLOBALS['TL_LANG']['tl_layout']['encoreContext'][1] = 'Here you can choose the context you want to use.';
 $GLOBALS['TL_LANG']['tl_layout']['encoreSection'][0] = 'Section';
 $GLOBALS['TL_LANG']['tl_layout']['encoreSection'][1] = 'Here you can select the section in which the context is used.';
+
+/*
+ * Field options
+ */
+$GLOBALS['TL_LANG']['tl_layout']['encoreContext']['options'] = [
+    EncoreConstants::SECTION_USERCSS    => 'CSS combine section',
+    EncoreConstants::SECTION_JAVASCRIPT => 'Javascript combine section',
+    EncoreConstants::SECTION_JQUERY     => 'JQuery section',
+    EncoreConstants::SECTION_MOOTOOLS   => 'MooTools section',
+    EncoreConstants::SECTION_HEAD       => 'Head section',
+    EncoreConstants::SECTION_BODY       => 'Body section'
+];
 
 /*
  * Legends

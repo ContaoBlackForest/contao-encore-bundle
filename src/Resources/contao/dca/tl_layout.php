@@ -21,6 +21,7 @@
  * The table configuration for tl_layout.
  */
 
+use BlackForest\Contao\Encore\Helper\EncoreConstants;
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
 
 /*
@@ -83,12 +84,16 @@ $GLOBALS['TL_DCA']['tl_layout']['fields'] = array_merge(
                         'exclude'          => true,
                         'inputType'        => 'select',
                         'options'          => [
-                            'TL_HEAD'     => 'Head',
-                            'TL_BODY'     => 'Body',
-                            'TL_MOOTOOLS' => 'MooTools',
-                            'TL_JQUERY'   => 'JQuery'
+                            EncoreConstants::SECTION_USERCSS,
+                            EncoreConstants::SECTION_JAVASCRIPT,
+                            EncoreConstants::SECTION_JQUERY,
+                            EncoreConstants::SECTION_MOOTOOLS,
+                            EncoreConstants::SECTION_HEAD,
+                            EncoreConstants::SECTION_BODY
                         ],
+                        'reference'               => &$GLOBALS['TL_LANG']['tl_layout']['encoreContext']['options'],
                         'eval'             => [
+                            'mandatory'          => true,
                             'includeBlankOption' => true,
                             'style'              => 'width:100%'
                         ]

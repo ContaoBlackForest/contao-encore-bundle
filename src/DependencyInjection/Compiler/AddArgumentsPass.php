@@ -32,13 +32,16 @@ class AddArgumentsPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
+        $builds = $container
+            ->getDefinition('webpack_encore.entrypoint_lookup.cache_warmer')
+            ->getArgument(0);
+
         $container
             ->getDefinition('cb.encore.table_layout_listener.encore_context_options')
-            ->replaceArgument(
-                0,
-                $container
-                    ->getDefinition('webpack_encore.entrypoint_lookup.cache_warmer')
-                    ->getArgument(0)
-            );
+            ->replaceArgument(0, $builds);
+
+        $container
+            ->getDefinition('cb.encore.frontend_listener.include_head_synthetic')
+            ->replaceArgument(0, $builds);
     }
 }
