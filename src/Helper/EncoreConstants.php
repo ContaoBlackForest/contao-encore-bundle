@@ -30,4 +30,7 @@ class EncoreConstants
     public const SECTION_MOOTOOLS   = 'TL_MOOTOOLS';
     public const SECTION_HEAD       = 'TL_HEAD';
     public const SECTION_BODY       = 'TL_BODY';
+
+    public const APPEND  = 'append';
+    public const PREPEND = 'prepend';
 }

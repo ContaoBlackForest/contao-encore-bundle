@@ -19,6 +19,7 @@
 
 namespace BlackForest\Contao\Encore\EventListener\Frontend;
 
+use BlackForest\Contao\Encore\Helper\EncoreConstants;
 use Contao\LayoutModel;
 use Contao\PageModel;
 use Psr\Cache\CacheItemPoolInterface;
@@ -108,7 +109,8 @@ trait IncludeSectionTrait
      */
     private function addAssetsToSection(array $config): void
     {
-        $assets = [[]];
+        $prependAssets = [[]];
+        $appendAssets  = [[]];
         foreach ($config as $item) {
             if (2 !== \substr_count($item['context'], '::')) {
                 continue;
@@ -124,11 +126,21 @@ trait IncludeSectionTrait
                 $this->cacheWarmUp($this->builds[$buildKey], $this->cache(), $buildKey);
             }
 
-            $assets[] = $this->getWebPackAssets($buildKey, $entryPoint, $type);
+            if (EncoreConstants::PREPEND === $item['insertMode']) {
+                $prependAssets[] = $this->getWebPackAssets($buildKey, $entryPoint, $type);
+
+                continue;
+            }
+
+            $appendAssets[] = $this->getWebPackAssets($buildKey, $entryPoint, $type);
         }
 
         $GLOBALS[$this->includeSectionName()] =
-            \array_merge((array) $GLOBALS[$this->includeSectionName()], ...$assets);
+            \array_merge(
+                \array_merge(...$prependAssets),
+                (array) $GLOBALS[$this->includeSectionName()],
+                \array_merge(...$appendAssets)
+            );
     }
 
     /**

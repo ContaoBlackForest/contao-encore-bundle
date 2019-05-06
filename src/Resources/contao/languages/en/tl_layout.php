@@ -26,25 +26,31 @@ use BlackForest\Contao\Encore\Helper\EncoreConstants;
 /*
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_layout']['useEncore'][0]     = 'Use encore';
-$GLOBALS['TL_LANG']['tl_layout']['useEncore'][1]     = 'Enable Encore to use this in this layout.';
-$GLOBALS['TL_LANG']['tl_layout']['encoreConfig'][0]  = 'Configuration';
-$GLOBALS['TL_LANG']['tl_layout']['encoreConfig'][1]  = 'Here you can make the settings for Encore.';
-$GLOBALS['TL_LANG']['tl_layout']['encoreContext'][0] = 'Context';
-$GLOBALS['TL_LANG']['tl_layout']['encoreContext'][1] = 'Here you can choose the context you want to use.';
-$GLOBALS['TL_LANG']['tl_layout']['encoreSection'][0] = 'Section';
-$GLOBALS['TL_LANG']['tl_layout']['encoreSection'][1] = 'Here you can select the section in which the context is used.';
+$GLOBALS['TL_LANG']['tl_layout']['useEncore'][0]        = 'Use encore';
+$GLOBALS['TL_LANG']['tl_layout']['useEncore'][1]        = 'Enable Encore to use this in this layout.';
+$GLOBALS['TL_LANG']['tl_layout']['encoreConfig'][0]     = 'Configuration';
+$GLOBALS['TL_LANG']['tl_layout']['encoreConfig'][1]     = 'Here you can make the settings for Encore.';
+$GLOBALS['TL_LANG']['tl_layout']['encoreContext'][0]    = 'Context';
+$GLOBALS['TL_LANG']['tl_layout']['encoreContext'][1]    = 'Here you can choose the context you want to use.';
+$GLOBALS['TL_LANG']['tl_layout']['encoreSection'][0]    = 'Section';
+$GLOBALS['TL_LANG']['tl_layout']['encoreSection'][1]    = 'Here you can select the section in which the context is used.';
+$GLOBALS['TL_LANG']['tl_layout']['encoreInsertMode'][0] = 'Insert mode';
+$GLOBALS['TL_LANG']['tl_layout']['encoreInsertMode'][1] = 'Here you can set how the context is to be inserted in the area.';
 
 /*
  * Field options
  */
-$GLOBALS['TL_LANG']['tl_layout']['encoreContext']['options'] = [
+$GLOBALS['TL_LANG']['tl_layout']['encoreContext']['options']    = [
     EncoreConstants::SECTION_USERCSS    => 'CSS combine section',
     EncoreConstants::SECTION_JAVASCRIPT => 'Javascript combine section',
     EncoreConstants::SECTION_JQUERY     => 'JQuery section',
     EncoreConstants::SECTION_MOOTOOLS   => 'MooTools section',
     EncoreConstants::SECTION_HEAD       => 'Head section',
     EncoreConstants::SECTION_BODY       => 'Body section'
+];
+$GLOBALS['TL_LANG']['tl_layout']['encoreInsertMode']['options'] = [
+    EncoreConstants::APPEND  => 'Insert at the end',
+    EncoreConstants::PREPEND => 'Insert at the start'
 ];
 
 /*

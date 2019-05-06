@@ -97,6 +97,20 @@ $GLOBALS['TL_DCA']['tl_layout']['fields'] = array_merge(
                             'includeBlankOption' => true,
                             'style'              => 'width:100%'
                         ]
+                    ],
+                    'insertMode' => [
+                        'label'            => &$GLOBALS['TL_LANG']['tl_layout']['encoreInsertMode'],
+                        'exclude'          => true,
+                        'inputType'        => 'select',
+                        'options'          => [
+                            EncoreConstants::APPEND,
+                            EncoreConstants::PREPEND
+                        ],
+                        'reference'               => &$GLOBALS['TL_LANG']['tl_layout']['encoreInsertMode']['options'],
+                        'eval'             => [
+                            'mandatory'          => true,
+                            'style'              => 'width:100%'
+                        ]
                     ]
                 ]
             ],
