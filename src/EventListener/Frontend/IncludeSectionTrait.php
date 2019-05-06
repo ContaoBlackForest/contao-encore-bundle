@@ -187,7 +187,8 @@ trait IncludeSectionTrait
                     return \substr($file, 1) . '|static';
                 }
 
-                return $file . '|static';
+                // If the encore dev server started, not add the static flag.
+                return (filter_var($file, FILTER_VALIDATE_URL)) ? $file : $file . '|static';
             },
             $assets
         );
