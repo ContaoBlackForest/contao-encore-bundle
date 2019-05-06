@@ -200,7 +200,7 @@ trait IncludeSectionTrait
      *
      * @return array
      */
-    protected function filterConfigBySection(array $config): array
+    private function filterConfigBySection(array $config): array
     {
         return \array_filter(
             $config,
