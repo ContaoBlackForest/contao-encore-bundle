@@ -210,7 +210,7 @@ trait IncludeSectionTrait
                         // Filter for javascript item.
                         && ((($this instanceof FilterAssetsForJavascriptInterface)
                              && ('::js' === \substr($item['context'], -\strlen('::js'))))
-                            //Filter for css item.
+                            // Filter for css item.
                             || (($this instanceof FilterAssetsForCssInterface)
                                 && ('::css' === \substr($item['context'], -\strlen('::css')))))
                 );
