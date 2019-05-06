@@ -37,6 +37,12 @@ class Plugin implements BundlePluginInterface
     public function getBundles(ParserInterface $parser)
     {
         return [
+            BundleConfig::create(WebpackEncoreBundle::class)
+                ->setLoadAfter(
+                    [
+                        ContaoCoreBundle::class
+                    ]
+                ),
             BundleConfig::create(BlackForestContaoEncoreBundle::class)
                 ->setLoadAfter(
                     [
