@@ -134,12 +134,18 @@ trait IncludeSectionTrait
 
             $appendAssets[] = $this->getWebPackAssets($buildKey, $entryPoint, $type);
         }
+        $prependAssets = \array_filter(\array_merge(...$prependAssets));
+        $appendAssets  = \array_filter(\array_merge(...$appendAssets));
+
+        if (!\count($prependAssets) && !\count($appendAssets)) {
+            return;
+        }
 
         $GLOBALS[$this->includeSectionName()] =
             \array_merge(
-                \array_merge(...$prependAssets),
-                (array) $GLOBALS[$this->includeSectionName()],
-                \array_merge(...$appendAssets)
+                $prependAssets,
+                ($GLOBALS[$this->includeSectionName()] ?? []),
+                $appendAssets
             );
     }
 
@@ -188,7 +194,7 @@ trait IncludeSectionTrait
                 }
 
                 // If the encore dev server started, not add the static flag.
-                return (filter_var($file, FILTER_VALIDATE_URL)) ? $file : $file . '|static';
+                return (\filter_var($file, FILTER_VALIDATE_URL)) ? $file : $file . '|static';
             },
             $assets
         );

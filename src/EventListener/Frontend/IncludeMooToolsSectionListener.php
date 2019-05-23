@@ -24,7 +24,7 @@ use BlackForest\Contao\Encore\Helper\EncoreConstants;
 /**
  * This listener is for include the encore context in the mootools section.
  */
-final class IncludeMooToolsSectionListener implements GetAssetAsFileInterface, FilterAssetsForJavascriptInterface
+final class IncludeMooToolsSectionListener implements GetAssetAsHtmlTagInterface, FilterAssetsForJavascriptInterface
 {
     use IncludeSectionTrait;
 
