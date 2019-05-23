@@ -35,7 +35,8 @@
     "require-dev": {
         "phpcq/all-tasks": "^1.2",
         "contao/manager-plugin": "^2.1",
-        "friendsofsymfony/http-cache": "^2.4"
+        "friendsofsymfony/http-cache": "^2.4",
+        "php-http/mock-client": "^1.0"
     },
     "autoload": {
         "psr-4": {
