@@ -1585,7 +1585,7 @@ class IncludeSectionTest extends TestCase
     private function createEntryPointLookup(CacheItemPoolInterface $cache): EntrypointLookup
     {
         return new EntrypointLookup(
-            __DIR__ . '/../../../fixtures/build/entrypoints.json',
+            \dirname(__DIR__, 2) . '/Fixtures/build/entrypoints.json',
             $cache,
             '_default'
         );

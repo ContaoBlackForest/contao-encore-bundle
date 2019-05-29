@@ -45,7 +45,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "BlackForest\\Contao\\Encore\\Test\\": "tests/Test"
+            "BlackForest\\Contao\\Encore\\Test\\": "tests"
         }
     },
     "extra": {
