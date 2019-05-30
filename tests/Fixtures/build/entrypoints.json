@@ -10,6 +10,16 @@
         "/build/styles2.css"
       ]
     },
+    "app-dev": {
+      "js": [
+          "http://localhost:8080/build-dev/app1.js",
+          "http://localhost:8080/build-dev/app2.js"
+      ],
+      "css": [
+        "http://localhost:8080/build-dev/styles.css",
+        "http://localhost:8080/build-dev/styles2.css"
+      ]
+    },
     "other_entry": {
       "js": [
           "/build/app1.js",

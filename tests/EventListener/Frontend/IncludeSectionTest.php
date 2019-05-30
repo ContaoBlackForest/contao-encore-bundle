@@ -17,6 +17,8 @@
  * @filesource
  */
 
+declare(strict_types=1);
+
 namespace BlackForest\Contao\Encore\Test\EventListener\Frontend;
 
 use BlackForest\Contao\Encore\EventListener\Frontend\IncludeBodySectionListener;
@@ -32,6 +34,7 @@ use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Asset\Packages;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookup;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollection;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupInterface;
@@ -45,7 +48,7 @@ use Symfony\WebpackEncoreBundle\Twig\EntryFilesTwigExtension;
  */
 class IncludeSectionTest extends TestCase
 {
-    public function dataProviderInlcudeBodySection()
+    public function dataProviderIncludeBodySection(): array
     {
         return [
             // 0
@@ -69,6 +72,26 @@ class IncludeSectionTest extends TestCase
                     [
                         'section'    => EncoreConstants::SECTION_BODY,
                         'context'    => 'app::js',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_BODY,
+                        'context'    => '_not_exist::app::css',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_BODY,
+                        'context'    => '_not_exist::app::js',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_BODY,
+                        'context'    => '_no_build_key::app::css',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_BODY,
+                        'context'    => '_no_build_key::app::js',
                         'insertMode' => EncoreConstants::APPEND
                     ]
                 ]
@@ -101,17 +124,18 @@ class IncludeSectionTest extends TestCase
                 true,
                 true,
                 [
-                    '<script src="/build/app1.js" integrity="sha384-Q86c+opr0lBUPWN28BLJFqmLhho+9ZcJpXHorQvX6mYDWJ24RQcdDarXFQYN8HLc"></script><script src="/build/app3.js" integrity="sha384-ZU3hiTN/+Va9WVImPi+cI0/j/Q7SzAVezqL1aEXha8sVgE5HU6/0wKUxj1LEnkC9"></script>'
+                    '<link rel="stylesheet" href="http://localhost:8080/build-dev/styles.css"><link rel="stylesheet" href="http://localhost:8080/build-dev/styles2.css">',
+                    '<script src="http://localhost:8080/build-dev/app1.js"></script><script src="http://localhost:8080/build-dev/app2.js"></script>'
                 ],
                 [
                     [
                         'section'    => EncoreConstants::SECTION_BODY,
-                        'context'    => '_default::other_entry::css',
+                        'context'    => '_default::app-dev::css',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
                         'section'    => EncoreConstants::SECTION_BODY,
-                        'context'    => '_default::other_entry::js',
+                        'context'    => '_default::app-dev::js',
                         'insertMode' => EncoreConstants::APPEND
                     ]
                 ]
@@ -122,24 +146,12 @@ class IncludeSectionTest extends TestCase
                 true,
                 true,
                 [
-                    '<link rel="stylesheet" href="/build/styles.css" integrity="sha384-4g+Zv0iELStVvA4/B27g4TQHUMwZttA5TEojjUyB8Gl5p7sarU4y+VTSGMrNab8n"><link rel="stylesheet" href="/build/styles2.css" integrity="sha384-hfZmq9+2oI5Cst4/F4YyS2tJAAYdGz7vqSMP8cJoa8bVOr2kxNRLxSw6P8UZjwUn">',
-                    '<script src="/build/app1.js" integrity="sha384-Q86c+opr0lBUPWN28BLJFqmLhho+9ZcJpXHorQvX6mYDWJ24RQcdDarXFQYN8HLc"></script><script src="/build/app2.js" integrity="sha384-ymG7OyjISWrOpH9jsGvajKMDEOP/mKJq8bHC0XdjQA6P8sg2nu+2RLQxcNNwE/3J"></script>',
-                    '<script src="/build/app3.js" integrity="sha384-ZU3hiTN/+Va9WVImPi+cI0/j/Q7SzAVezqL1aEXha8sVgE5HU6/0wKUxj1LEnkC9"></script>'
+                    '<script src="/build/app1.js" integrity="sha384-Q86c+opr0lBUPWN28BLJFqmLhho+9ZcJpXHorQvX6mYDWJ24RQcdDarXFQYN8HLc"></script><script src="/build/app3.js" integrity="sha384-ZU3hiTN/+Va9WVImPi+cI0/j/Q7SzAVezqL1aEXha8sVgE5HU6/0wKUxj1LEnkC9"></script>'
                 ],
                 [
                     [
                         'section'    => EncoreConstants::SECTION_BODY,
-                        'context'    => '_default::app::css',
-                        'insertMode' => EncoreConstants::APPEND
-                    ],
-                    [
-                        'section'    => EncoreConstants::SECTION_BODY,
-                        'context'    => '_default::app::js',
-                        'insertMode' => EncoreConstants::APPEND
-                    ],
-                    [
-                        'section'    => EncoreConstants::SECTION_BODY,
-                        'context'    => '_default::app::css',
+                        'context'    => '_default::other_entry::css',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
@@ -163,6 +175,39 @@ class IncludeSectionTest extends TestCase
                     [
                         'section'    => EncoreConstants::SECTION_BODY,
                         'context'    => '_default::app::css',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_BODY,
+                        'context'    => '_default::app::js',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_BODY,
+                        'context'    => '_default::app::css',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_BODY,
+                        'context'    => '_default::other_entry::js',
+                        'insertMode' => EncoreConstants::APPEND
+                    ]
+                ]
+            ],
+            // 8
+            [
+                true,
+                true,
+                true,
+                [
+                    '<link rel="stylesheet" href="/build/styles.css" integrity="sha384-4g+Zv0iELStVvA4/B27g4TQHUMwZttA5TEojjUyB8Gl5p7sarU4y+VTSGMrNab8n"><link rel="stylesheet" href="/build/styles2.css" integrity="sha384-hfZmq9+2oI5Cst4/F4YyS2tJAAYdGz7vqSMP8cJoa8bVOr2kxNRLxSw6P8UZjwUn">',
+                    '<script src="/build/app1.js" integrity="sha384-Q86c+opr0lBUPWN28BLJFqmLhho+9ZcJpXHorQvX6mYDWJ24RQcdDarXFQYN8HLc"></script><script src="/build/app2.js" integrity="sha384-ymG7OyjISWrOpH9jsGvajKMDEOP/mKJq8bHC0XdjQA6P8sg2nu+2RLQxcNNwE/3J"></script>',
+                    '<script src="/build/app3.js" integrity="sha384-ZU3hiTN/+Va9WVImPi+cI0/j/Q7SzAVezqL1aEXha8sVgE5HU6/0wKUxj1LEnkC9"></script>'
+                ],
+                [
+                    [
+                        'section'    => EncoreConstants::SECTION_BODY,
+                        'context'    => '_default::app::css',
                         'insertMode' => EncoreConstants::PREPEND
                     ],
                     [
@@ -182,7 +227,7 @@ class IncludeSectionTest extends TestCase
                     ]
                 ]
             ],
-            // 8
+            // 9
             [
                 true,
                 true,
@@ -215,7 +260,7 @@ class IncludeSectionTest extends TestCase
                     ]
                 ]
             ],
-            // 9
+            // 10
             [
                 true,
                 true,
@@ -260,24 +305,27 @@ class IncludeSectionTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProviderInlcudeBodySection
+     * @dataProvider dataProviderIncludeBodySection
      *
      * @covers       \BlackForest\Contao\Encore\EventListener\Frontend\IncludeBodySectionListener
      */
-    public function testInlcudeBodySection(
+    public function testIncludeBodySection(
         bool $hasPageLayut,
         bool $useEncore = false,
         bool $hasEncoreConfig = false,
         array $expected = [],
         array $encoreConfig = []
-    ) {
-        unset($GLOBALS[EncoreConstants::SECTION_BODY]);
+    ): void {
+        unset($GLOBALS['TL_BODY']);
 
         $this->createActivePage($hasPageLayut, $useEncore, $encoreConfig);
 
-        $cache          = $this->mockCacheItemPool();
+        $cache          = new ArrayAdapter();
         $includeSection = new IncludeBodySectionListener(
-            ['_default' => __DIR__ . '/../../../fixtures/build/entrypoints.json'],
+            [
+                '_default'   => \dirname(__DIR__, 2) . '/Fixtures/build/entrypoints.json',
+                '_not_exist' => \dirname(__DIR__, 2) . '/Fixtures/build/_not_exist.json'
+            ],
             $cache,
             $this->createTwigExtension($cache)
         );
@@ -291,15 +339,18 @@ class IncludeSectionTest extends TestCase
         }
 
         if (!\count($expected)) {
-            $this->assertArrayNotHasKey(EncoreConstants::SECTION_BODY, $GLOBALS);
+            $this->assertArrayNotHasKey('TL_BODY', $GLOBALS);
 
             return;
         }
 
-        $this->assertSame($expected, $GLOBALS[EncoreConstants::SECTION_BODY]);
+        $this->assertSame($expected, $GLOBALS['TL_BODY']);
+        $this->assertSame('TL_BODY', EncoreConstants::SECTION_BODY);
+
+        unset($GLOBALS['TL_BODY']);
     }
 
-    public function dataProviderIncludeCSSCombineSection()
+    public function dataProviderIncludeCSSCombineSection(): array
     {
         return [
             // 0
@@ -323,6 +374,26 @@ class IncludeSectionTest extends TestCase
                     [
                         'section'    => EncoreConstants::SECTION_USERCSS,
                         'context'    => 'app::js',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'context'    => '_not_exist::app::css',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'context'    => '_not_exist::app::js',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'context'    => '_no_build_key::app::css',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'context'    => '_no_build_key::app::js',
                         'insertMode' => EncoreConstants::APPEND
                     ]
                 ]
@@ -354,16 +425,19 @@ class IncludeSectionTest extends TestCase
                 true,
                 true,
                 true,
-                [],
+                [
+                    'http://localhost:8080/build-dev/styles.css',
+                    'http://localhost:8080/build-dev/styles2.css'
+                ],
                 [
                     [
                         'section'    => EncoreConstants::SECTION_USERCSS,
-                        'context'    => '_default::other_entry::css',
+                        'context'    => '_default::app-dev::css',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
                         'section'    => EncoreConstants::SECTION_USERCSS,
-                        'context'    => '_default::other_entry::js',
+                        'context'    => '_default::app-dev::js',
                         'insertMode' => EncoreConstants::APPEND
                     ]
                 ]
@@ -373,24 +447,11 @@ class IncludeSectionTest extends TestCase
                 true,
                 true,
                 true,
-                [
-                    'build/styles.css|static',
-                    'build/styles2.css|static'
-                ],
+                [],
                 [
                     [
                         'section'    => EncoreConstants::SECTION_USERCSS,
-                        'context'    => '_default::app::css',
-                        'insertMode' => EncoreConstants::APPEND
-                    ],
-                    [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
-                        'context'    => '_default::app::js',
-                        'insertMode' => EncoreConstants::APPEND
-                    ],
-                    [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
-                        'context'    => '_default::app::css',
+                        'context'    => '_default::other_entry::css',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
@@ -413,12 +474,12 @@ class IncludeSectionTest extends TestCase
                     [
                         'section'    => EncoreConstants::SECTION_USERCSS,
                         'context'    => '_default::app::css',
-                        'insertMode' => EncoreConstants::PREPEND
+                        'insertMode' => EncoreConstants::APPEND
                     ],
                     [
                         'section'    => EncoreConstants::SECTION_USERCSS,
                         'context'    => '_default::app::js',
-                        'insertMode' => EncoreConstants::PREPEND
+                        'insertMode' => EncoreConstants::APPEND
                     ],
                     [
                         'section'    => EncoreConstants::SECTION_USERCSS,
@@ -445,6 +506,38 @@ class IncludeSectionTest extends TestCase
                     [
                         'section'    => EncoreConstants::SECTION_USERCSS,
                         'context'    => '_default::app::css',
+                        'insertMode' => EncoreConstants::PREPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'context'    => '_default::app::js',
+                        'insertMode' => EncoreConstants::PREPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'context'    => '_default::app::css',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'context'    => '_default::other_entry::js',
+                        'insertMode' => EncoreConstants::APPEND
+                    ]
+                ]
+            ],
+            // 9
+            [
+                true,
+                true,
+                true,
+                [
+                    'build/styles.css|static',
+                    'build/styles2.css|static'
+                ],
+                [
+                    [
+                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'context'    => '_default::app::css',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
@@ -464,7 +557,7 @@ class IncludeSectionTest extends TestCase
                     ]
                 ]
             ],
-            // 9
+            // 10
             [
                 true,
                 true,
@@ -520,14 +613,17 @@ class IncludeSectionTest extends TestCase
         bool $hasEncoreConfig = false,
         array $expected = [],
         array $encoreConfig = []
-    ) {
-        unset($GLOBALS[EncoreConstants::SECTION_USERCSS]);
+    ): void {
+        unset($GLOBALS['TL_USER_CSS']);
 
         $this->createActivePage($hasPageLayut, $useEncore, $encoreConfig);
 
-        $cache          = $this->mockCacheItemPool();
+        $cache          = new ArrayAdapter();
         $includeSection = new IncludeCSSCombineSectionListener(
-            ['_default' => __DIR__ . '/../../../fixtures/build/entrypoints.json'],
+            [
+                '_default'   => \dirname(__DIR__, 2) . '/Fixtures/build/entrypoints.json',
+                '_not_exist' => \dirname(__DIR__, 2) . '/Fixtures/build/_not_exist.json'
+            ],
             $cache,
             $this->createTwigExtension($cache)
         );
@@ -541,15 +637,18 @@ class IncludeSectionTest extends TestCase
         }
 
         if (!\count($expected)) {
-            $this->assertArrayNotHasKey(EncoreConstants::SECTION_USERCSS, $GLOBALS);
+            $this->assertArrayNotHasKey('TL_USER_CSS', $GLOBALS);
 
             return;
         }
 
-        $this->assertSame($expected, $GLOBALS[EncoreConstants::SECTION_USERCSS]);
+        $this->assertSame($expected, $GLOBALS['TL_USER_CSS']);
+        $this->assertSame('TL_USER_CSS', EncoreConstants::SECTION_USERCSS);
+
+        unset($GLOBALS['TL_USER_CSS']);
     }
 
-    public function dataProviderIncludeHeadSection()
+    public function dataProviderIncludeHeadSection(): array
     {
         return [
             // 0
@@ -573,6 +672,26 @@ class IncludeSectionTest extends TestCase
                     [
                         'section'    => EncoreConstants::SECTION_HEAD,
                         'context'    => 'app::js',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_HEAD,
+                        'context'    => '_not_exist::app::css',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_HEAD,
+                        'context'    => '_not_exist::app::js',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_HEAD,
+                        'context'    => '_no_build_key::app::css',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_HEAD,
+                        'context'    => '_no_build_key::app::js',
                         'insertMode' => EncoreConstants::APPEND
                     ]
                 ]
@@ -605,17 +724,18 @@ class IncludeSectionTest extends TestCase
                 true,
                 true,
                 [
-                    '<script src="/build/app1.js" integrity="sha384-Q86c+opr0lBUPWN28BLJFqmLhho+9ZcJpXHorQvX6mYDWJ24RQcdDarXFQYN8HLc"></script><script src="/build/app3.js" integrity="sha384-ZU3hiTN/+Va9WVImPi+cI0/j/Q7SzAVezqL1aEXha8sVgE5HU6/0wKUxj1LEnkC9"></script>'
+                    '<link rel="stylesheet" href="http://localhost:8080/build-dev/styles.css"><link rel="stylesheet" href="http://localhost:8080/build-dev/styles2.css">',
+                    '<script src="http://localhost:8080/build-dev/app1.js"></script><script src="http://localhost:8080/build-dev/app2.js"></script>'
                 ],
                 [
                     [
                         'section'    => EncoreConstants::SECTION_HEAD,
-                        'context'    => '_default::other_entry::css',
+                        'context'    => '_default::app-dev::css',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
                         'section'    => EncoreConstants::SECTION_HEAD,
-                        'context'    => '_default::other_entry::js',
+                        'context'    => '_default::app-dev::js',
                         'insertMode' => EncoreConstants::APPEND
                     ]
                 ]
@@ -626,24 +746,12 @@ class IncludeSectionTest extends TestCase
                 true,
                 true,
                 [
-                    '<link rel="stylesheet" href="/build/styles.css" integrity="sha384-4g+Zv0iELStVvA4/B27g4TQHUMwZttA5TEojjUyB8Gl5p7sarU4y+VTSGMrNab8n"><link rel="stylesheet" href="/build/styles2.css" integrity="sha384-hfZmq9+2oI5Cst4/F4YyS2tJAAYdGz7vqSMP8cJoa8bVOr2kxNRLxSw6P8UZjwUn">',
-                    '<script src="/build/app1.js" integrity="sha384-Q86c+opr0lBUPWN28BLJFqmLhho+9ZcJpXHorQvX6mYDWJ24RQcdDarXFQYN8HLc"></script><script src="/build/app2.js" integrity="sha384-ymG7OyjISWrOpH9jsGvajKMDEOP/mKJq8bHC0XdjQA6P8sg2nu+2RLQxcNNwE/3J"></script>',
-                    '<script src="/build/app3.js" integrity="sha384-ZU3hiTN/+Va9WVImPi+cI0/j/Q7SzAVezqL1aEXha8sVgE5HU6/0wKUxj1LEnkC9"></script>'
+                    '<script src="/build/app1.js" integrity="sha384-Q86c+opr0lBUPWN28BLJFqmLhho+9ZcJpXHorQvX6mYDWJ24RQcdDarXFQYN8HLc"></script><script src="/build/app3.js" integrity="sha384-ZU3hiTN/+Va9WVImPi+cI0/j/Q7SzAVezqL1aEXha8sVgE5HU6/0wKUxj1LEnkC9"></script>'
                 ],
                 [
                     [
                         'section'    => EncoreConstants::SECTION_HEAD,
-                        'context'    => '_default::app::css',
-                        'insertMode' => EncoreConstants::APPEND
-                    ],
-                    [
-                        'section'    => EncoreConstants::SECTION_HEAD,
-                        'context'    => '_default::app::js',
-                        'insertMode' => EncoreConstants::APPEND
-                    ],
-                    [
-                        'section'    => EncoreConstants::SECTION_HEAD,
-                        'context'    => '_default::app::css',
+                        'context'    => '_default::other_entry::css',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
@@ -667,6 +775,39 @@ class IncludeSectionTest extends TestCase
                     [
                         'section'    => EncoreConstants::SECTION_HEAD,
                         'context'    => '_default::app::css',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_HEAD,
+                        'context'    => '_default::app::js',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_HEAD,
+                        'context'    => '_default::app::css',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_HEAD,
+                        'context'    => '_default::other_entry::js',
+                        'insertMode' => EncoreConstants::APPEND
+                    ]
+                ]
+            ],
+            // 8
+            [
+                true,
+                true,
+                true,
+                [
+                    '<link rel="stylesheet" href="/build/styles.css" integrity="sha384-4g+Zv0iELStVvA4/B27g4TQHUMwZttA5TEojjUyB8Gl5p7sarU4y+VTSGMrNab8n"><link rel="stylesheet" href="/build/styles2.css" integrity="sha384-hfZmq9+2oI5Cst4/F4YyS2tJAAYdGz7vqSMP8cJoa8bVOr2kxNRLxSw6P8UZjwUn">',
+                    '<script src="/build/app1.js" integrity="sha384-Q86c+opr0lBUPWN28BLJFqmLhho+9ZcJpXHorQvX6mYDWJ24RQcdDarXFQYN8HLc"></script><script src="/build/app2.js" integrity="sha384-ymG7OyjISWrOpH9jsGvajKMDEOP/mKJq8bHC0XdjQA6P8sg2nu+2RLQxcNNwE/3J"></script>',
+                    '<script src="/build/app3.js" integrity="sha384-ZU3hiTN/+Va9WVImPi+cI0/j/Q7SzAVezqL1aEXha8sVgE5HU6/0wKUxj1LEnkC9"></script>'
+                ],
+                [
+                    [
+                        'section'    => EncoreConstants::SECTION_HEAD,
+                        'context'    => '_default::app::css',
                         'insertMode' => EncoreConstants::PREPEND
                     ],
                     [
@@ -686,7 +827,7 @@ class IncludeSectionTest extends TestCase
                     ]
                 ]
             ],
-            // 8
+            // 9
             [
                 true,
                 true,
@@ -719,7 +860,7 @@ class IncludeSectionTest extends TestCase
                     ]
                 ]
             ],
-            // 9
+            // 10
             [
                 true,
                 true,
@@ -774,14 +915,17 @@ class IncludeSectionTest extends TestCase
         bool $hasEncoreConfig = false,
         array $expected = [],
         array $encoreConfig = []
-    ) {
-        unset($GLOBALS[EncoreConstants::SECTION_HEAD]);
+    ): void {
+        unset($GLOBALS['TL_HEAD']);
 
         $this->createActivePage($hasPageLayut, $useEncore, $encoreConfig);
 
-        $cache          = $this->mockCacheItemPool();
+        $cache          = new ArrayAdapter();
         $includeSection = new IncludeHeadSectionListener(
-            ['_default' => __DIR__ . '/../../../fixtures/build/entrypoints.json'],
+            [
+                '_default'   => \dirname(__DIR__, 2) . '/Fixtures/build/entrypoints.json',
+                '_not_exist' => \dirname(__DIR__, 2) . '/Fixtures/build/_not_exist.json'
+            ],
             $cache,
             $this->createTwigExtension($cache)
         );
@@ -795,15 +939,18 @@ class IncludeSectionTest extends TestCase
         }
 
         if (!\count($expected)) {
-            $this->assertArrayNotHasKey(EncoreConstants::SECTION_HEAD, $GLOBALS);
+            $this->assertArrayNotHasKey('TL_HEAD', $GLOBALS);
 
             return;
         }
 
-        $this->assertSame($expected, $GLOBALS[EncoreConstants::SECTION_HEAD]);
+        $this->assertSame($expected, $GLOBALS['TL_HEAD']);
+        $this->assertSame('TL_HEAD', EncoreConstants::SECTION_HEAD);
+
+        unset($GLOBALS['TL_HEAD']);
     }
 
-    public function dataProviderIncludeJavascriptCombineSection()
+    public function dataProviderIncludeJavascriptCombineSection(): array
     {
         return [
             // 0
@@ -827,6 +974,16 @@ class IncludeSectionTest extends TestCase
                     [
                         'section'    => EncoreConstants::SECTION_JAVASCRIPT,
                         'context'    => 'app::js',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_JAVASCRIPT,
+                        'context'    => '_not_exist::app::css',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_JAVASCRIPT,
+                        'context'    => '_not_exist::app::js',
                         'insertMode' => EncoreConstants::APPEND
                     ]
                 ]
@@ -859,18 +1016,18 @@ class IncludeSectionTest extends TestCase
                 true,
                 true,
                 [
-                    'build/app1.js|static',
-                    'build/app3.js|static'
+                    'http://localhost:8080/build-dev/app1.js',
+                    'http://localhost:8080/build-dev/app2.js'
                 ],
                 [
                     [
                         'section'    => EncoreConstants::SECTION_JAVASCRIPT,
-                        'context'    => '_default::other_entry::css',
+                        'context'    => '_default::app-dev::css',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
                         'section'    => EncoreConstants::SECTION_JAVASCRIPT,
-                        'context'    => '_default::other_entry::js',
+                        'context'    => '_default::app-dev::js',
                         'insertMode' => EncoreConstants::APPEND
                     ]
                 ]
@@ -882,23 +1039,12 @@ class IncludeSectionTest extends TestCase
                 true,
                 [
                     'build/app1.js|static',
-                    'build/app2.js|static',
                     'build/app3.js|static'
                 ],
                 [
                     [
                         'section'    => EncoreConstants::SECTION_JAVASCRIPT,
-                        'context'    => '_default::app::css',
-                        'insertMode' => EncoreConstants::APPEND
-                    ],
-                    [
-                        'section'    => EncoreConstants::SECTION_JAVASCRIPT,
-                        'context'    => '_default::app::js',
-                        'insertMode' => EncoreConstants::APPEND
-                    ],
-                    [
-                        'section'    => EncoreConstants::SECTION_JAVASCRIPT,
-                        'context'    => '_default::app::css',
+                        'context'    => '_default::other_entry::css',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
@@ -922,6 +1068,39 @@ class IncludeSectionTest extends TestCase
                     [
                         'section'    => EncoreConstants::SECTION_JAVASCRIPT,
                         'context'    => '_default::app::css',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_JAVASCRIPT,
+                        'context'    => '_default::app::js',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_JAVASCRIPT,
+                        'context'    => '_default::app::css',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_JAVASCRIPT,
+                        'context'    => '_default::other_entry::js',
+                        'insertMode' => EncoreConstants::APPEND
+                    ]
+                ]
+            ],
+            // 8
+            [
+                true,
+                true,
+                true,
+                [
+                    'build/app1.js|static',
+                    'build/app2.js|static',
+                    'build/app3.js|static'
+                ],
+                [
+                    [
+                        'section'    => EncoreConstants::SECTION_JAVASCRIPT,
+                        'context'    => '_default::app::css',
                         'insertMode' => EncoreConstants::PREPEND
                     ],
                     [
@@ -941,7 +1120,7 @@ class IncludeSectionTest extends TestCase
                     ]
                 ]
             ],
-            // 8
+            // 9
             [
                 true,
                 true,
@@ -974,7 +1153,7 @@ class IncludeSectionTest extends TestCase
                     ]
                 ]
             ],
-            // 9
+            // 10
             [
                 true,
                 true,
@@ -1030,14 +1209,17 @@ class IncludeSectionTest extends TestCase
         bool $hasEncoreConfig = false,
         array $expected = [],
         array $encoreConfig = []
-    ) {
-        unset($GLOBALS[EncoreConstants::SECTION_JAVASCRIPT]);
+    ): void {
+        unset($GLOBALS['TL_JAVASCRIPT']);
 
         $this->createActivePage($hasPageLayut, $useEncore, $encoreConfig);
 
-        $cache          = $this->mockCacheItemPool();
+        $cache          = new ArrayAdapter();
         $includeSection = new IncludeJavascriptCombineSectionListener(
-            ['_default' => __DIR__ . '/../../../fixtures/build/entrypoints.json'],
+            [
+                '_default'   => \dirname(__DIR__, 2) . '/Fixtures/build/entrypoints.json',
+                '_not_exist' => \dirname(__DIR__, 2) . '/Fixtures/build/_not_exist.json'
+            ],
             $cache,
             $this->createTwigExtension($cache)
         );
@@ -1051,12 +1233,15 @@ class IncludeSectionTest extends TestCase
         }
 
         if (!\count($expected)) {
-            $this->assertArrayNotHasKey(EncoreConstants::SECTION_JAVASCRIPT, $GLOBALS);
+            $this->assertArrayNotHasKey('TL_JAVASCRIPT', $GLOBALS);
 
             return;
         }
 
-        $this->assertSame($expected, $GLOBALS[EncoreConstants::SECTION_JAVASCRIPT]);
+        $this->assertSame($expected, $GLOBALS['TL_JAVASCRIPT']);
+        $this->assertSame('TL_JAVASCRIPT', EncoreConstants::SECTION_JAVASCRIPT);
+
+        unset($GLOBALS['TL_JAVASCRIPT']);
     }
 
     public function dataProviderIncludeJQueryCombineSection()
@@ -1083,6 +1268,26 @@ class IncludeSectionTest extends TestCase
                     [
                         'section'    => EncoreConstants::SECTION_JQUERY,
                         'context'    => 'app::js',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_JQUERY,
+                        'context'    => '_not_exist::app::css',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_JQUERY,
+                        'context'    => '_not_exist::app::js',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_JQUERY,
+                        'context'    => '_no_build_key::app::css',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_JQUERY,
+                        'context'    => '_no_build_key::app::js',
                         'insertMode' => EncoreConstants::APPEND
                     ]
                 ]
@@ -1114,17 +1319,17 @@ class IncludeSectionTest extends TestCase
                 true,
                 true,
                 [
-                    '<script src="/build/app1.js" integrity="sha384-Q86c+opr0lBUPWN28BLJFqmLhho+9ZcJpXHorQvX6mYDWJ24RQcdDarXFQYN8HLc"></script><script src="/build/app3.js" integrity="sha384-ZU3hiTN/+Va9WVImPi+cI0/j/Q7SzAVezqL1aEXha8sVgE5HU6/0wKUxj1LEnkC9"></script>'
+                    '<script src="http://localhost:8080/build-dev/app1.js"></script><script src="http://localhost:8080/build-dev/app2.js"></script>'
                 ],
                 [
                     [
                         'section'    => EncoreConstants::SECTION_JQUERY,
-                        'context'    => '_default::other_entry::css',
+                        'context'    => '_default::app-dev::css',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
                         'section'    => EncoreConstants::SECTION_JQUERY,
-                        'context'    => '_default::other_entry::js',
+                        'context'    => '_default::app-dev::js',
                         'insertMode' => EncoreConstants::APPEND
                     ]
                 ]
@@ -1135,23 +1340,12 @@ class IncludeSectionTest extends TestCase
                 true,
                 true,
                 [
-                    '<script src="/build/app1.js" integrity="sha384-Q86c+opr0lBUPWN28BLJFqmLhho+9ZcJpXHorQvX6mYDWJ24RQcdDarXFQYN8HLc"></script><script src="/build/app2.js" integrity="sha384-ymG7OyjISWrOpH9jsGvajKMDEOP/mKJq8bHC0XdjQA6P8sg2nu+2RLQxcNNwE/3J"></script>',
-                    '<script src="/build/app3.js" integrity="sha384-ZU3hiTN/+Va9WVImPi+cI0/j/Q7SzAVezqL1aEXha8sVgE5HU6/0wKUxj1LEnkC9"></script>'
+                    '<script src="/build/app1.js" integrity="sha384-Q86c+opr0lBUPWN28BLJFqmLhho+9ZcJpXHorQvX6mYDWJ24RQcdDarXFQYN8HLc"></script><script src="/build/app3.js" integrity="sha384-ZU3hiTN/+Va9WVImPi+cI0/j/Q7SzAVezqL1aEXha8sVgE5HU6/0wKUxj1LEnkC9"></script>'
                 ],
                 [
                     [
                         'section'    => EncoreConstants::SECTION_JQUERY,
-                        'context'    => '_default::app::css',
-                        'insertMode' => EncoreConstants::APPEND
-                    ],
-                    [
-                        'section'    => EncoreConstants::SECTION_JQUERY,
-                        'context'    => '_default::app::js',
-                        'insertMode' => EncoreConstants::APPEND
-                    ],
-                    [
-                        'section'    => EncoreConstants::SECTION_JQUERY,
-                        'context'    => '_default::app::css',
+                        'context'    => '_default::other_entry::css',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
@@ -1174,6 +1368,38 @@ class IncludeSectionTest extends TestCase
                     [
                         'section'    => EncoreConstants::SECTION_JQUERY,
                         'context'    => '_default::app::css',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_JQUERY,
+                        'context'    => '_default::app::js',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_JQUERY,
+                        'context'    => '_default::app::css',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_JQUERY,
+                        'context'    => '_default::other_entry::js',
+                        'insertMode' => EncoreConstants::APPEND
+                    ]
+                ]
+            ],
+            // 8
+            [
+                true,
+                true,
+                true,
+                [
+                    '<script src="/build/app1.js" integrity="sha384-Q86c+opr0lBUPWN28BLJFqmLhho+9ZcJpXHorQvX6mYDWJ24RQcdDarXFQYN8HLc"></script><script src="/build/app2.js" integrity="sha384-ymG7OyjISWrOpH9jsGvajKMDEOP/mKJq8bHC0XdjQA6P8sg2nu+2RLQxcNNwE/3J"></script>',
+                    '<script src="/build/app3.js" integrity="sha384-ZU3hiTN/+Va9WVImPi+cI0/j/Q7SzAVezqL1aEXha8sVgE5HU6/0wKUxj1LEnkC9"></script>'
+                ],
+                [
+                    [
+                        'section'    => EncoreConstants::SECTION_JQUERY,
+                        'context'    => '_default::app::css',
                         'insertMode' => EncoreConstants::PREPEND
                     ],
                     [
@@ -1193,7 +1419,7 @@ class IncludeSectionTest extends TestCase
                     ]
                 ]
             ],
-            // 8
+            // 9
             [
                 true,
                 true,
@@ -1225,7 +1451,7 @@ class IncludeSectionTest extends TestCase
                     ]
                 ]
             ],
-            // 9
+            // 10
             [
                 true,
                 true,
@@ -1280,14 +1506,17 @@ class IncludeSectionTest extends TestCase
         bool $hasEncoreConfig = false,
         array $expected = [],
         array $encoreConfig = []
-    ) {
-        unset($GLOBALS[EncoreConstants::SECTION_JQUERY]);
+    ): void {
+        unset($GLOBALS['TL_JQUERY']);
 
         $this->createActivePage($hasPageLayut, $useEncore, $encoreConfig);
 
-        $cache          = $this->mockCacheItemPool();
+        $cache          = new ArrayAdapter();
         $includeSection = new IncludeJQuerySectionListener(
-            ['_default' => __DIR__ . '/../../../fixtures/build/entrypoints.json'],
+            [
+                '_default'   => \dirname(__DIR__, 2) . '/Fixtures/build/entrypoints.json',
+                '_not_exist' => \dirname(__DIR__, 2) . '/Fixtures/build/_not_exist.json'
+            ],
             $cache,
             $this->createTwigExtension($cache)
         );
@@ -1301,15 +1530,18 @@ class IncludeSectionTest extends TestCase
         }
 
         if (!\count($expected)) {
-            $this->assertArrayNotHasKey(EncoreConstants::SECTION_JQUERY, $GLOBALS);
+            $this->assertArrayNotHasKey('TL_JQUERY', $GLOBALS);
 
             return;
         }
 
-        $this->assertSame($expected, $GLOBALS[EncoreConstants::SECTION_JQUERY]);
+        $this->assertSame($expected, $GLOBALS['TL_JQUERY']);
+        $this->assertSame('TL_JQUERY', EncoreConstants::SECTION_JQUERY);
+
+        unset($GLOBALS['TL_JQUERY']);
     }
 
-    public function dataProviderIncludeMooToolsCombineSection()
+    public function dataProviderIncludeMooToolsCombineSection(): array
     {
         return [
             // 0
@@ -1333,6 +1565,26 @@ class IncludeSectionTest extends TestCase
                     [
                         'section'    => EncoreConstants::SECTION_MOOTOOLS,
                         'context'    => 'app::js',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_MOOTOOLS,
+                        'context'    => '_not_exist::app::css',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_MOOTOOLS,
+                        'context'    => '_not_exist::app::js',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_MOOTOOLS,
+                        'context'    => '_no_build_key::app::css',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_MOOTOOLS,
+                        'context'    => '_no_build_key::app::js',
                         'insertMode' => EncoreConstants::APPEND
                     ]
                 ]
@@ -1364,17 +1616,17 @@ class IncludeSectionTest extends TestCase
                 true,
                 true,
                 [
-                    '<script src="/build/app1.js" integrity="sha384-Q86c+opr0lBUPWN28BLJFqmLhho+9ZcJpXHorQvX6mYDWJ24RQcdDarXFQYN8HLc"></script><script src="/build/app3.js" integrity="sha384-ZU3hiTN/+Va9WVImPi+cI0/j/Q7SzAVezqL1aEXha8sVgE5HU6/0wKUxj1LEnkC9"></script>'
+                    '<script src="http://localhost:8080/build-dev/app1.js"></script><script src="http://localhost:8080/build-dev/app2.js"></script>'
                 ],
                 [
                     [
                         'section'    => EncoreConstants::SECTION_MOOTOOLS,
-                        'context'    => '_default::other_entry::css',
+                        'context'    => '_default::app-dev::css',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
                         'section'    => EncoreConstants::SECTION_MOOTOOLS,
-                        'context'    => '_default::other_entry::js',
+                        'context'    => '_default::app-dev::js',
                         'insertMode' => EncoreConstants::APPEND
                     ]
                 ]
@@ -1385,23 +1637,12 @@ class IncludeSectionTest extends TestCase
                 true,
                 true,
                 [
-                    '<script src="/build/app1.js" integrity="sha384-Q86c+opr0lBUPWN28BLJFqmLhho+9ZcJpXHorQvX6mYDWJ24RQcdDarXFQYN8HLc"></script><script src="/build/app2.js" integrity="sha384-ymG7OyjISWrOpH9jsGvajKMDEOP/mKJq8bHC0XdjQA6P8sg2nu+2RLQxcNNwE/3J"></script>',
-                    '<script src="/build/app3.js" integrity="sha384-ZU3hiTN/+Va9WVImPi+cI0/j/Q7SzAVezqL1aEXha8sVgE5HU6/0wKUxj1LEnkC9"></script>'
+                    '<script src="/build/app1.js" integrity="sha384-Q86c+opr0lBUPWN28BLJFqmLhho+9ZcJpXHorQvX6mYDWJ24RQcdDarXFQYN8HLc"></script><script src="/build/app3.js" integrity="sha384-ZU3hiTN/+Va9WVImPi+cI0/j/Q7SzAVezqL1aEXha8sVgE5HU6/0wKUxj1LEnkC9"></script>'
                 ],
                 [
                     [
                         'section'    => EncoreConstants::SECTION_MOOTOOLS,
-                        'context'    => '_default::app::css',
-                        'insertMode' => EncoreConstants::APPEND
-                    ],
-                    [
-                        'section'    => EncoreConstants::SECTION_MOOTOOLS,
-                        'context'    => '_default::app::js',
-                        'insertMode' => EncoreConstants::APPEND
-                    ],
-                    [
-                        'section'    => EncoreConstants::SECTION_MOOTOOLS,
-                        'context'    => '_default::app::css',
+                        'context'    => '_default::other_entry::css',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
@@ -1424,6 +1665,38 @@ class IncludeSectionTest extends TestCase
                     [
                         'section'    => EncoreConstants::SECTION_MOOTOOLS,
                         'context'    => '_default::app::css',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_MOOTOOLS,
+                        'context'    => '_default::app::js',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_MOOTOOLS,
+                        'context'    => '_default::app::css',
+                        'insertMode' => EncoreConstants::APPEND
+                    ],
+                    [
+                        'section'    => EncoreConstants::SECTION_MOOTOOLS,
+                        'context'    => '_default::other_entry::js',
+                        'insertMode' => EncoreConstants::APPEND
+                    ]
+                ]
+            ],
+            // 8
+            [
+                true,
+                true,
+                true,
+                [
+                    '<script src="/build/app1.js" integrity="sha384-Q86c+opr0lBUPWN28BLJFqmLhho+9ZcJpXHorQvX6mYDWJ24RQcdDarXFQYN8HLc"></script><script src="/build/app2.js" integrity="sha384-ymG7OyjISWrOpH9jsGvajKMDEOP/mKJq8bHC0XdjQA6P8sg2nu+2RLQxcNNwE/3J"></script>',
+                    '<script src="/build/app3.js" integrity="sha384-ZU3hiTN/+Va9WVImPi+cI0/j/Q7SzAVezqL1aEXha8sVgE5HU6/0wKUxj1LEnkC9"></script>'
+                ],
+                [
+                    [
+                        'section'    => EncoreConstants::SECTION_MOOTOOLS,
+                        'context'    => '_default::app::css',
                         'insertMode' => EncoreConstants::PREPEND
                     ],
                     [
@@ -1443,7 +1716,7 @@ class IncludeSectionTest extends TestCase
                     ]
                 ]
             ],
-            // 8
+            // 9
             [
                 true,
                 true,
@@ -1475,7 +1748,7 @@ class IncludeSectionTest extends TestCase
                     ]
                 ]
             ],
-            // 9
+            // 10
             [
                 true,
                 true,
@@ -1530,14 +1803,17 @@ class IncludeSectionTest extends TestCase
         bool $hasEncoreConfig = false,
         array $expected = [],
         array $encoreConfig = []
-    ) {
-        unset($GLOBALS[EncoreConstants::SECTION_MOOTOOLS]);
+    ): void {
+        unset($GLOBALS['TL_MOOTOOLS']);
 
         $this->createActivePage($hasPageLayut, $useEncore, $encoreConfig);
 
-        $cache          = $this->mockCacheItemPool();
+        $cache          = new ArrayAdapter();
         $includeSection = new IncludeMooToolsSectionListener(
-            ['_default' => __DIR__ . '/../../../fixtures/build/entrypoints.json'],
+            [
+                '_default'   => \dirname(__DIR__, 2) . '/Fixtures/build/entrypoints.json',
+                '_not_exist' => \dirname(__DIR__, 2) . '/Fixtures/build/_not_exist.json'
+            ],
             $cache,
             $this->createTwigExtension($cache)
         );
@@ -1551,12 +1827,15 @@ class IncludeSectionTest extends TestCase
         }
 
         if (!\count($expected)) {
-            $this->assertArrayNotHasKey(EncoreConstants::SECTION_MOOTOOLS, $GLOBALS);
+            $this->assertArrayNotHasKey('TL_MOOTOOLS', $GLOBALS);
 
             return;
         }
 
-        $this->assertSame($expected, $GLOBALS[EncoreConstants::SECTION_MOOTOOLS]);
+        $this->assertSame($expected, $GLOBALS['TL_MOOTOOLS']);
+        $this->assertSame('TL_MOOTOOLS', EncoreConstants::SECTION_MOOTOOLS);
+
+        unset($GLOBALS['TL_MOOTOOLS']);
     }
 
     /**
@@ -1564,7 +1843,7 @@ class IncludeSectionTest extends TestCase
      *
      * @return \PHPUnit\Framework\MockObject\MockObject|EntrypointLookupCollection
      */
-    private function mockEntryPointCollection(EntrypointLookupInterface $lookup)
+    private function mockEntryPointCollection(EntrypointLookupInterface $lookup): EntrypointLookupCollection
     {
         $collection = $this->createMock(EntrypointLookupCollection::class);
         $collection
@@ -1592,61 +1871,6 @@ class IncludeSectionTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|CacheItemPoolInterface
-     */
-    private function mockCacheItemPool()
-    {
-        $cache = $this->createMock(CacheItemPoolInterface::class);
-
-        $cacheItems = [
-            '_default' => $this->mockDefaultCacheItem()
-        ];
-
-        $cache
-            ->expects($this->any())
-            ->method('getItem')
-            ->willReturnCallback(
-                function ($key) use ($cacheItems) {
-                    return $cacheItems[$key] ?? null;
-                }
-            );
-
-        return $cache;
-    }
-
-    /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|CacheItemInterface
-     */
-    private function mockDefaultCacheItem()
-    {
-        $cacheItem = $this->createMock(CacheItemInterface::class);
-
-        $cacheItemValue = null;
-
-        $cacheItem
-            ->expects($this->any())
-            ->method('get')
-            ->willReturnCallback(
-                function () use (&$cacheItemValue) {
-                    return $cacheItemValue;
-                }
-            );
-
-        $cacheItem
-            ->expects($this->any())
-            ->method('set')
-            ->willReturnCallback(
-                function ($value) use (&$cacheItemValue, $cacheItem) {
-                    $cacheItemValue = $value;
-
-                    return $cacheItem;
-                }
-            );
-
-        return $cacheItem;
-    }
-
-    /**
      * @return EntryFilesTwigExtension
      */
     private function createTwigExtension(CacheItemPoolInterface $cache): EntryFilesTwigExtension
@@ -1666,6 +1890,10 @@ class IncludeSectionTest extends TestCase
                             '/build/app2.js',
                             '/build/styles.css',
                             '/build/styles2.css',
+                            'http://localhost:8080/build-dev/app1.js',
+                            'http://localhost:8080/build-dev/app2.js',
+                            'http://localhost:8080/build-dev/styles.css',
+                            'http://localhost:8080/build-dev/styles2.css',
                             '/build/app1.js',
                             '/build/app3.js'
                         ]) ? $path : null
@@ -1722,9 +1950,14 @@ class IncludeSectionTest extends TestCase
             return;
         }
 
+        $encoreConfigs = [
+            $encoreConfig,
+            \serialize($encoreConfig)
+        ];
+        \shuffle($encoreConfigs);
         $pageLayoutData = [
             'useEncore'    => '1',
-            'encoreConfig' => \serialize($encoreConfig)
+            'encoreConfig' => $encoreConfigs[0]
         ];
 
         $pageLayout

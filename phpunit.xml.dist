@@ -20,6 +20,9 @@
     <filter>
         <whitelist>
             <directory>./src</directory>
+            <exclude>
+                <directory>./src/Resources/contao</directory>
+            </exclude>
         </whitelist>
     </filter>
 </phpunit>
