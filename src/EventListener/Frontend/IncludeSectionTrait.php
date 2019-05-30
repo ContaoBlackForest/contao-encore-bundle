@@ -126,6 +126,10 @@ trait IncludeSectionTrait
                 $this->cacheWarmUp($this->builds[$buildKey], $this->cache(), $buildKey);
             }
 
+            if (!$this->cache()->getItem($buildKey)->get()) {
+                continue;
+            }
+
             if (EncoreConstants::PREPEND === $item['insertMode']) {
                 $prependAssets[] = $this->getWebPackAssets($buildKey, $entryPoint, $type);
 
