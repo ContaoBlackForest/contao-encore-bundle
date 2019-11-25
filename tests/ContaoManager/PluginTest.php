@@ -53,7 +53,7 @@ class PluginTest extends TestCase
         $config
             ->expects($this->exactly(2))
             ->method('getLoadAfter')
-            ->willReturn([ContaoCoreBundle::class], [ContaoCoreBundle::class, WebpackEncoreBundle::class]);
+            ->willReturn([], [ContaoCoreBundle::class, WebpackEncoreBundle::class]);
 
         $config
             ->expects($this->exactly(2))

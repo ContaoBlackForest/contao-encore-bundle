@@ -24,12 +24,14 @@ use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
+use Contao\ManagerPlugin\Config\ContainerBuilder;
+use Contao\ManagerPlugin\Config\ExtensionPluginInterface;
 use Symfony\WebpackEncoreBundle\WebpackEncoreBundle;
 
 /**
  * Contao Manager plugin.
  */
-class Plugin implements BundlePluginInterface
+class Plugin implements BundlePluginInterface, ExtensionPluginInterface
 {
     /**
      * {@inheritdoc}
@@ -37,12 +39,7 @@ class Plugin implements BundlePluginInterface
     public function getBundles(ParserInterface $parser)
     {
         return [
-            BundleConfig::create(WebpackEncoreBundle::class)
-                ->setLoadAfter(
-                    [
-                        ContaoCoreBundle::class
-                    ]
-                ),
+            BundleConfig::create(WebpackEncoreBundle::class),
             BundleConfig::create(BlackForestContaoEncoreBundle::class)
                 ->setLoadAfter(
                     [
@@ -51,5 +48,25 @@ class Plugin implements BundlePluginInterface
                     ]
                 )
         ];
+    }
+
+    /**
+     * Configure the webpack encore extension, if is not configured.
+     *
+     * {@inheritDoc}
+     */
+    public function getExtensionConfig($extensionName, array $extensionConfigs, ContainerBuilder $container)
+    {
+        if ('webpack_encore' !== $extensionName || !empty($extensionConfigs)) {
+            return $extensionConfigs;
+        }
+
+        $extensionConfigs = [
+            [
+                'output_path' => '%kernel.project_dir%/web/layout'
+            ]
+        ];
+
+        return $extensionConfigs;
     }
 }
