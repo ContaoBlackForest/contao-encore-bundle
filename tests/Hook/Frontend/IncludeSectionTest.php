@@ -19,14 +19,14 @@
 
 declare(strict_types=1);
 
-namespace BlackForest\Contao\Encore\Test\EventListener\Frontend;
+namespace BlackForest\Contao\Encore\Test\Hook\Frontend;
 
-use BlackForest\Contao\Encore\EventListener\Frontend\IncludeBodySectionListener;
-use BlackForest\Contao\Encore\EventListener\Frontend\IncludeCSSCombineSectionListener;
-use BlackForest\Contao\Encore\EventListener\Frontend\IncludeHeadSectionListener;
-use BlackForest\Contao\Encore\EventListener\Frontend\IncludeJavascriptCombineSectionListener;
-use BlackForest\Contao\Encore\EventListener\Frontend\IncludeJQuerySectionListener;
-use BlackForest\Contao\Encore\EventListener\Frontend\IncludeMooToolsSectionListener;
+use BlackForest\Contao\Encore\Hook\Frontend\IncludeBodySectionListener;
+use BlackForest\Contao\Encore\Hook\Frontend\IncludeCSSCombineSectionListener;
+use BlackForest\Contao\Encore\Hook\Frontend\IncludeHeadSectionListener;
+use BlackForest\Contao\Encore\Hook\Frontend\IncludeJavascriptCombineSectionListener;
+use BlackForest\Contao\Encore\Hook\Frontend\IncludeJQuerySectionListener;
+use BlackForest\Contao\Encore\Hook\Frontend\IncludeMooToolsSectionListener;
 use BlackForest\Contao\Encore\Helper\EncoreConstants;
 use Contao\LayoutModel;
 use Contao\PageModel;
@@ -44,7 +44,7 @@ use Symfony\WebpackEncoreBundle\Twig\EntryFilesTwigExtension;
 /**
  * Test for include by section.
  *
- * @covers \BlackForest\Contao\Encore\EventListener\Frontend\AbstractIncludeSection
+ * @covers \BlackForest\Contao\Encore\Hook\Frontend\AbstractIncludeSection
  */
 class IncludeSectionTest extends TestCase
 {
@@ -319,7 +319,7 @@ class IncludeSectionTest extends TestCase
     /**
      * @dataProvider dataProviderIncludeBodySection
      *
-     * @covers       \BlackForest\Contao\Encore\EventListener\Frontend\IncludeBodySectionListener
+     * @covers       \BlackForest\Contao\Encore\Hook\Frontend\IncludeBodySectionListener
      */
     public function testIncludeBodySection(
         bool $hasPageLayut,
@@ -617,7 +617,7 @@ class IncludeSectionTest extends TestCase
     /**
      * @dataProvider dataProviderIncludeCSSCombineSection
      *
-     * @covers       \BlackForest\Contao\Encore\EventListener\Frontend\IncludeCSSCombineSectionListener
+     * @covers       \BlackForest\Contao\Encore\Hook\Frontend\IncludeCSSCombineSectionListener
      */
     public function testIncludeCSSCombineSection(
         bool $hasPageLayut,
@@ -919,7 +919,7 @@ class IncludeSectionTest extends TestCase
     /**
      * @dataProvider dataProviderIncludeHeadSection
      *
-     * @covers       \BlackForest\Contao\Encore\EventListener\Frontend\IncludeHeadSectionListener
+     * @covers       \BlackForest\Contao\Encore\Hook\Frontend\IncludeHeadSectionListener
      */
     public function testIncludeHeadSection(
         bool $hasPageLayut,
@@ -1213,7 +1213,7 @@ class IncludeSectionTest extends TestCase
     /**
      * @dataProvider dataProviderIncludeJavascriptCombineSection
      *
-     * @covers       \BlackForest\Contao\Encore\EventListener\Frontend\IncludeJavascriptCombineSectionListener
+     * @covers       \BlackForest\Contao\Encore\Hook\Frontend\IncludeJavascriptCombineSectionListener
      */
     public function testIncludeJavascriptCombineSection(
         bool $hasPageLayut,
@@ -1510,7 +1510,7 @@ class IncludeSectionTest extends TestCase
     /**
      * @dataProvider dataProviderIncludeJQueryCombineSection
      *
-     * @covers       \BlackForest\Contao\Encore\EventListener\Frontend\IncludeJQuerySectionListener
+     * @covers       \BlackForest\Contao\Encore\Hook\Frontend\IncludeJQuerySectionListener
      */
     public function testIncludeJQueryCombineSection(
         bool $hasPageLayut,
@@ -1807,7 +1807,7 @@ class IncludeSectionTest extends TestCase
     /**
      * @dataProvider dataProviderIncludeMooToolsCombineSection
      *
-     * @covers       \BlackForest\Contao\Encore\EventListener\Frontend\IncludeMooToolsSectionListener
+     * @covers       \BlackForest\Contao\Encore\Hook\Frontend\IncludeMooToolsSectionListener
      */
     public function testIncludeMooToolsCombineSection(
         bool $hasPageLayut,

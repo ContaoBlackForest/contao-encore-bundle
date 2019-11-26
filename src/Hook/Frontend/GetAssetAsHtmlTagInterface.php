@@ -17,23 +17,11 @@
  * @filesource
  */
 
-declare(strict_types=1);
-
-namespace BlackForest\Contao\Encore\EventListener\Frontend;
-
-use BlackForest\Contao\Encore\Helper\EncoreConstants;
+namespace BlackForest\Contao\Encore\Hook\Frontend;
 
 /**
- * This listener is for include the encore context in the mootools section.
+ * Interface for get webpack assets html tag.
  */
-final class IncludeMooToolsSectionListener extends AbstractIncludeSection implements
-    GetAssetAsHtmlTagInterface,
-    FilterAssetsForJavascriptInterface
+interface GetAssetAsHtmlTagInterface
 {
-    /**
-     * The include section name.
-     *
-     * @var string
-     */
-    protected $includeSectionName = EncoreConstants::SECTION_MOOTOOLS;
 }

@@ -1,5 +1,5 @@
 services:
-    BlackForest\Contao\Encore\EventListener\Frontend\AbstractIncludeSection:
+    BlackForest\Contao\Encore\Hook\Frontend\AbstractIncludeSection:
         public: true
         abstract: true
         arguments:
@@ -8,26 +8,26 @@ services:
             $cache: "@webpack_encore.cache"
             $twigExtension: "@webpack_encore.twig_entry_files_extension"
 
-    BlackForest\Contao\Encore\EventListener\Frontend\IncludeCSSCombineSectionListener:
-        parent: BlackForest\Contao\Encore\EventListener\Frontend\AbstractIncludeSection
+    BlackForest\Contao\Encore\Hook\Frontend\IncludeCSSCombineSectionListener:
+        parent: BlackForest\Contao\Encore\Hook\Frontend\AbstractIncludeSection
         public: true
 
-    BlackForest\Contao\Encore\EventListener\Frontend\IncludeJavascriptCombineSectionListener:
-        parent: BlackForest\Contao\Encore\EventListener\Frontend\AbstractIncludeSection
+    BlackForest\Contao\Encore\Hook\Frontend\IncludeJavascriptCombineSectionListener:
+        parent: BlackForest\Contao\Encore\Hook\Frontend\AbstractIncludeSection
         public: true
 
-    BlackForest\Contao\Encore\EventListener\Frontend\IncludeJQuerySectionListener:
-        parent: BlackForest\Contao\Encore\EventListener\Frontend\AbstractIncludeSection
+    BlackForest\Contao\Encore\Hook\Frontend\IncludeJQuerySectionListener:
+        parent: BlackForest\Contao\Encore\Hook\Frontend\AbstractIncludeSection
         public: true
 
-    BlackForest\Contao\Encore\EventListener\Frontend\IncludeMooToolsSectionListener:
-        parent: BlackForest\Contao\Encore\EventListener\Frontend\AbstractIncludeSection
+    BlackForest\Contao\Encore\Hook\Frontend\IncludeMooToolsSectionListener:
+        parent: BlackForest\Contao\Encore\Hook\Frontend\AbstractIncludeSection
         public: true
 
-    BlackForest\Contao\Encore\EventListener\Frontend\IncludeHeadSectionListener:
-        parent: BlackForest\Contao\Encore\EventListener\Frontend\AbstractIncludeSection
+    BlackForest\Contao\Encore\Hook\Frontend\IncludeHeadSectionListener:
+        parent: BlackForest\Contao\Encore\Hook\Frontend\AbstractIncludeSection
         public: true
 
-    BlackForest\Contao\Encore\EventListener\Frontend\IncludeBodySectionListener:
-        parent: BlackForest\Contao\Encore\EventListener\Frontend\AbstractIncludeSection
+    BlackForest\Contao\Encore\Hook\Frontend\IncludeBodySectionListener:
+        parent: BlackForest\Contao\Encore\Hook\Frontend\AbstractIncludeSection
         public: true

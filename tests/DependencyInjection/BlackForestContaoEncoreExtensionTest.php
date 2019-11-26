@@ -22,17 +22,16 @@ declare(strict_types=1);
 namespace BlackForest\Contao\Encore\Test\DependencyInjection;
 
 use BlackForest\Contao\Encore\DependencyInjection\BlackForestContaoEncoreExtension;
-use BlackForest\Contao\Encore\EventListener\Frontend\AbstractIncludeSection;
-use BlackForest\Contao\Encore\EventListener\Frontend\IncludeBodySectionListener;
-use BlackForest\Contao\Encore\EventListener\Frontend\IncludeCSSCombineSectionListener;
-use BlackForest\Contao\Encore\EventListener\Frontend\IncludeHeadSectionListener;
-use BlackForest\Contao\Encore\EventListener\Frontend\IncludeJavascriptCombineSectionListener;
-use BlackForest\Contao\Encore\EventListener\Frontend\IncludeJQuerySectionListener;
-use BlackForest\Contao\Encore\EventListener\Frontend\IncludeMooToolsSectionListener;
+use BlackForest\Contao\Encore\Hook\Frontend\AbstractIncludeSection;
+use BlackForest\Contao\Encore\Hook\Frontend\IncludeBodySectionListener;
+use BlackForest\Contao\Encore\Hook\Frontend\IncludeCSSCombineSectionListener;
+use BlackForest\Contao\Encore\Hook\Frontend\IncludeHeadSectionListener;
+use BlackForest\Contao\Encore\Hook\Frontend\IncludeJavascriptCombineSectionListener;
+use BlackForest\Contao\Encore\Hook\Frontend\IncludeJQuerySectionListener;
+use BlackForest\Contao\Encore\Hook\Frontend\IncludeMooToolsSectionListener;
 use BlackForest\Contao\Encore\Callback\Table\Layout\EncoreContextOptionsListener;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 /**
  * @covers \BlackForest\Contao\Encore\DependencyInjection\BlackForestContaoEncoreExtension

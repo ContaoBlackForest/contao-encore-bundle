@@ -19,22 +19,21 @@
 
 declare(strict_types=1);
 
-namespace BlackForest\Contao\Encore\EventListener\Frontend;
+namespace BlackForest\Contao\Encore\Hook\Frontend;
 
 use BlackForest\Contao\Encore\Helper\EncoreConstants;
 
 /**
- * This listener is for include the encore context in the head section.
+ * This listener is for include the encore context in the css combine section.
  */
-final class IncludeHeadSectionListener extends AbstractIncludeSection implements
-    GetAssetAsHtmlTagInterface,
-    FilterAssetsForCssInterface,
-    FilterAssetsForJavascriptInterface
+final class IncludeCSSCombineSectionListener extends AbstractIncludeSection implements
+    GetAssetAsFileInterface,
+    FilterAssetsForCssInterface
 {
     /**
      * The include section name.
      *
      * @var string
      */
-    protected $includeSectionName = EncoreConstants::SECTION_HEAD;
+    protected $includeSectionName = EncoreConstants::SECTION_USERCSS;
 }

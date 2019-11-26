@@ -17,11 +17,23 @@
  * @filesource
  */
 
-namespace BlackForest\Contao\Encore\EventListener\Frontend;
+declare(strict_types=1);
+
+namespace BlackForest\Contao\Encore\Hook\Frontend;
+
+use BlackForest\Contao\Encore\Helper\EncoreConstants;
 
 /**
- * Interface for get webpack assets as file.
+ * This listener is for include the encore context in the jquery section.
  */
-interface GetAssetAsFileInterface
+final class IncludeJQuerySectionListener extends AbstractIncludeSection implements
+    GetAssetAsHtmlTagInterface,
+    FilterAssetsForJavascriptInterface
 {
+    /**
+     * The include section name.
+     *
+     * @var string
+     */
+    protected $includeSectionName = EncoreConstants::SECTION_JQUERY;
 }

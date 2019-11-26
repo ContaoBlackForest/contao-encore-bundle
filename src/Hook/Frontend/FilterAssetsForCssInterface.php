@@ -17,11 +17,11 @@
  * @filesource
  */
 
-namespace BlackForest\Contao\Encore\EventListener\Frontend;
+namespace BlackForest\Contao\Encore\Hook\Frontend;
 
 /**
- * Interface for get webpack assets html tag.
+ * Interface for filter css assets.
  */
-interface GetAssetAsHtmlTagInterface
+interface FilterAssetsForCssInterface
 {
 }

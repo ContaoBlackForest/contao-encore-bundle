@@ -19,15 +19,16 @@
 
 declare(strict_types=1);
 
-namespace BlackForest\Contao\Encore\EventListener\Frontend;
+namespace BlackForest\Contao\Encore\Hook\Frontend;
 
 use BlackForest\Contao\Encore\Helper\EncoreConstants;
 
 /**
- * This listener is for include the encore context in the jquery section.
+ * This listener is for include the encore context in the head section.
  */
-final class IncludeJQuerySectionListener extends AbstractIncludeSection implements
+final class IncludeHeadSectionListener extends AbstractIncludeSection implements
     GetAssetAsHtmlTagInterface,
+    FilterAssetsForCssInterface,
     FilterAssetsForJavascriptInterface
 {
     /**
@@ -35,5 +36,5 @@ final class IncludeJQuerySectionListener extends AbstractIncludeSection implemen
      *
      * @var string
      */
-    protected $includeSectionName = EncoreConstants::SECTION_JQUERY;
+    protected $includeSectionName = EncoreConstants::SECTION_HEAD;
 }

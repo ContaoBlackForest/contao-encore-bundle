@@ -17,23 +17,11 @@
  * @filesource
  */
 
-declare(strict_types=1);
-
-namespace BlackForest\Contao\Encore\EventListener\Frontend;
-
-use BlackForest\Contao\Encore\Helper\EncoreConstants;
+namespace BlackForest\Contao\Encore\Hook\Frontend;
 
 /**
- * This listener is for include the encore context in the javascript combine section.
+ * Interface for get webpack assets as file.
  */
-final class IncludeJavascriptCombineSectionListener extends AbstractIncludeSection implements
-    GetAssetAsFileInterface,
-    FilterAssetsForJavascriptInterface
+interface GetAssetAsFileInterface
 {
-    /**
-     * The include section name.
-     *
-     * @var string
-     */
-    protected $includeSectionName = EncoreConstants::SECTION_JAVASCRIPT;
 }

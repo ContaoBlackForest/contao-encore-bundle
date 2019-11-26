@@ -19,7 +19,7 @@
 
 declare(strict_types=1);
 
-namespace BlackForest\Contao\Encore\EventListener\Frontend;
+namespace BlackForest\Contao\Encore\Hook\Frontend;
 
 use BlackForest\Contao\Encore\Helper\EncoreConstants;
 
