@@ -17,6 +17,8 @@
  * @filesource
  */
 
+declare(strict_types=1);
+
 namespace BlackForest\Contao\Encore\EventListener\Table\Layout;
 
 use Contao\Widget;

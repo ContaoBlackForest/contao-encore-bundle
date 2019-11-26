@@ -17,6 +17,8 @@
  * @filesource
  */
 
+declare(strict_types=1);
+
 namespace BlackForest\Contao\Encore;
 
 use BlackForest\Contao\Encore\DependencyInjection\Compiler\AddArgumentsPass;

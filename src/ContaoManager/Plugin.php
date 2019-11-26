@@ -17,6 +17,8 @@
  * @filesource
  */
 
+declare(strict_types=1);
+
 namespace BlackForest\Contao\Encore\ContaoManager;
 
 use BlackForest\Contao\Encore\BlackForestContaoEncoreBundle;
@@ -31,12 +33,12 @@ use Symfony\WebpackEncoreBundle\WebpackEncoreBundle;
 /**
  * Contao Manager plugin.
  */
-class Plugin implements BundlePluginInterface, ExtensionPluginInterface
+final class Plugin implements BundlePluginInterface, ExtensionPluginInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function getBundles(ParserInterface $parser)
+    public function getBundles(ParserInterface $parser): array
     {
         return [
             BundleConfig::create(WebpackEncoreBundle::class),
@@ -55,7 +57,7 @@ class Plugin implements BundlePluginInterface, ExtensionPluginInterface
      *
      * {@inheritDoc}
      */
-    public function getExtensionConfig($extensionName, array $extensionConfigs, ContainerBuilder $container)
+    public function getExtensionConfig($extensionName, array $extensionConfigs, ContainerBuilder $container): array
     {
         if ('webpack_encore' !== $extensionName || !empty($extensionConfigs)) {
             return $extensionConfigs;

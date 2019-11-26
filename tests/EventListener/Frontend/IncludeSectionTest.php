@@ -28,9 +28,9 @@ use BlackForest\Contao\Encore\EventListener\Frontend\IncludeJavascriptCombineSec
 use BlackForest\Contao\Encore\EventListener\Frontend\IncludeJQuerySectionListener;
 use BlackForest\Contao\Encore\EventListener\Frontend\IncludeMooToolsSectionListener;
 use BlackForest\Contao\Encore\Helper\EncoreConstants;
-use Contao\Model;
+use Contao\LayoutModel;
+use Contao\PageModel;
 use PHPUnit\Framework\TestCase;
-use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Asset\Packages;
@@ -1923,7 +1923,7 @@ class IncludeSectionTest extends TestCase
 
     private function createActivePage(bool $hasPageLayout, bool $useEncore, array $encoreConfig): void
     {
-        $pageModel = $this->createMock(Model::class);
+        $pageModel = $this->createMock(PageModel::class);
 
         $GLOBALS['objPage'] = $pageModel;
 
@@ -1933,7 +1933,7 @@ class IncludeSectionTest extends TestCase
 
         $pageRelated = [];
 
-        $pageLayout = $this->createMock(Model::class);
+        $pageLayout = $this->createMock(LayoutModel::class);
 
         $pageRelated['layout'] = $pageLayout;
 

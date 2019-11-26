@@ -17,6 +17,8 @@
  * @filesource
  */
 
+declare(strict_types=1);
+
 namespace BlackForest\Contao\Encore\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
@@ -27,12 +29,12 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 /**
  * This loads configuration.
  */
-class BlackForestContaoEncoreExtension extends Extension
+final class BlackForestContaoEncoreExtension extends Extension
 {
     /**
      * {@inheritDoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new YamlFileLoader($container, new FileLocator(\dirname(__DIR__) . '/Resources/config'));
         $loader->load('frontend/event_listener.yml');

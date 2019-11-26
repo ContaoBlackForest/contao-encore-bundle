@@ -17,6 +17,8 @@
  * @filesource
  */
 
+declare(strict_types=1);
+
 namespace BlackForest\Contao\Encore\DependencyInjection\Compiler;
 
 use BlackForest\Contao\Encore\EventListener\Table\Layout\EncoreContextOptionsListener;
@@ -26,12 +28,12 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * This adds arguments from the definitions of webpack encore definitions.
  */
-class AddArgumentsPass implements CompilerPassInterface
+final class AddArgumentsPass implements CompilerPassInterface
 {
     /**
      * {@inheritDoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $builds = $container
             ->getDefinition('webpack_encore.entrypoint_lookup.cache_warmer')

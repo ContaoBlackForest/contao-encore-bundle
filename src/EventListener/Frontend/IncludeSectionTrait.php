@@ -17,6 +17,8 @@
  * @filesource
  */
 
+declare(strict_types=1);
+
 namespace BlackForest\Contao\Encore\EventListener\Frontend;
 
 use BlackForest\Contao\Encore\Helper\EncoreConstants;
@@ -232,11 +234,11 @@ trait IncludeSectionTrait
     /**
      * Get the page layout.
      *
-     * @return LayoutModel|\Contao\Model\Collection|PageModel|null
+     * @return LayoutModel|null
      */
     private function getPageLayout()
     {
-        if (!($page = $this->getAcivePage())
+        if (!($page = $this->getActivePage())
             || !($layout = $page->getRelated('layout'))
         ) {
             return null;
@@ -252,7 +254,7 @@ trait IncludeSectionTrait
      *
      * @SuppressWarnings(PHPMD.Superglobals)
      */
-    private function getAcivePage()
+    private function getActivePage(): ?PageModel
     {
         return ($GLOBALS['objPage'] ?? null);
     }
