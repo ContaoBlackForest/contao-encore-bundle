@@ -13,6 +13,7 @@ php:
   - "7.1"
 
 env:
+  - CONTAO_VERSION=~4.8.0
   - CONTAO_VERSION=~4.7.0
   - CONTAO_VERSION=~4.6.0
   - CONTAO_VERSION=~4.5.0
