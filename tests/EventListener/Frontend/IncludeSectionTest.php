@@ -55,6 +55,7 @@ class IncludeSectionTest extends TestCase
     {
         parent::setUpBeforeClass();
         // Some class mapping for Contao 4.4.
+        self::aliasContaoClass('Model');
         self::aliasContaoClass('LayoutModel');
         self::aliasContaoClass('PageModel');
     }
