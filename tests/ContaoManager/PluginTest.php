@@ -26,6 +26,7 @@ use BlackForest\Contao\Encore\ContaoManager\Plugin;
 use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\ManagerPlugin\Bundle\Config\ConfigInterface;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
+use Contao\ManagerPlugin\Config\ContainerBuilder;
 use PHPUnit\Framework\TestCase;
 use Symfony\WebpackEncoreBundle\WebpackEncoreBundle;
 
@@ -77,5 +78,20 @@ class PluginTest extends TestCase
             $this->assertSame($config->loadInProduction(), $bundle->loadInProduction());
             $this->assertSame($config->loadInDevelopment(), $bundle->loadInDevelopment());
         }
+    }
+
+    public function testGetExtensionConfig(): void
+    {
+        $container = $this->createMock(ContainerBuilder::class);
+
+        $plugin = new Plugin();
+
+        static::assertSame([], $plugin->getExtensionConfig('foo', [], $container));
+        static::assertSame(['foo'], $plugin->getExtensionConfig('foo', ['foo'], $container));
+        static::assertSame(['hasConfig'], $plugin->getExtensionConfig('webpack_encore', ['hasConfig'], $container));
+        static::assertSame(
+            [['output_path' => '%kernel.project_dir%/web/layout']],
+            $plugin->getExtensionConfig('webpack_encore', [], $container)
+        );
     }
 }
