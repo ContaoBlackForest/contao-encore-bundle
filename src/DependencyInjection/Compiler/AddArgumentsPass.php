@@ -22,6 +22,7 @@ declare(strict_types=1);
 namespace BlackForest\Contao\Encore\DependencyInjection\Compiler;
 
 use BlackForest\Contao\Encore\Callback\Table\Layout\EncoreContextOptionsListener;
+use BlackForest\Contao\Encore\EventListener\Frontend\AbstractIncludeSection;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -41,10 +42,10 @@ final class AddArgumentsPass implements CompilerPassInterface
 
         $container
             ->getDefinition(EncoreContextOptionsListener::class)
-            ->replaceArgument(0, $builds);
+            ->replaceArgument('$builds', $builds);
 
         $container
-            ->getDefinition('cb.encore.frontend_listener.include_head_synthetic')
-            ->replaceArgument(0, $builds);
+            ->getDefinition(AbstractIncludeSection::class)
+            ->replaceArgument('$builds', $builds);
     }
 }

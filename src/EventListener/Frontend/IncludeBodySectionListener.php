@@ -26,13 +26,11 @@ use BlackForest\Contao\Encore\Helper\EncoreConstants;
 /**
  * This listener is for include the encore context in the body section.
  */
-final class IncludeBodySectionListener implements
+final class IncludeBodySectionListener extends AbstractIncludeSection implements
     GetAssetAsHtmlTagInterface,
     FilterAssetsForCssInterface,
     FilterAssetsForJavascriptInterface
 {
-    use IncludeSectionTrait;
-
     /**
      * The include section name.
      *

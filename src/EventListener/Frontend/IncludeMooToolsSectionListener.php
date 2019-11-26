@@ -26,10 +26,10 @@ use BlackForest\Contao\Encore\Helper\EncoreConstants;
 /**
  * This listener is for include the encore context in the mootools section.
  */
-final class IncludeMooToolsSectionListener implements GetAssetAsHtmlTagInterface, FilterAssetsForJavascriptInterface
+final class IncludeMooToolsSectionListener extends AbstractIncludeSection implements
+    GetAssetAsHtmlTagInterface,
+    FilterAssetsForJavascriptInterface
 {
-    use IncludeSectionTrait;
-
     /**
      * The include section name.
      *

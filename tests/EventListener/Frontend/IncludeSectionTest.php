@@ -44,7 +44,7 @@ use Symfony\WebpackEncoreBundle\Twig\EntryFilesTwigExtension;
 /**
  * Test for include by section.
  *
- * @covers \BlackForest\Contao\Encore\EventListener\Frontend\IncludeSectionTrait
+ * @covers \BlackForest\Contao\Encore\EventListener\Frontend\AbstractIncludeSection
  */
 class IncludeSectionTest extends TestCase
 {

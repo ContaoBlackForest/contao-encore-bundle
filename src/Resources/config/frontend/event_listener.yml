@@ -1,32 +1,33 @@
 services:
-    cb.encore.frontend_listener.include_head_synthetic:
-        synthetic: true
+    BlackForest\Contao\Encore\EventListener\Frontend\AbstractIncludeSection:
         public: true
+        abstract: true
         arguments:
-            - # This argument where set with the add arguments pass and comes from webpack_encore.entrypoint_lookup.cache_warmer.
-            - "@webpack_encore.cache"
-            - "@webpack_encore.twig_entry_files_extension"
+            # This argument where set with the add arguments pass and comes from webpack_encore.entrypoint_lookup.cache_warmer.
+            $builds: ''
+            $cache: "@webpack_encore.cache"
+            $twigExtension: "@webpack_encore.twig_entry_files_extension"
 
     BlackForest\Contao\Encore\EventListener\Frontend\IncludeCSSCombineSectionListener:
-        parent: cb.encore.frontend_listener.include_head_synthetic
+        parent: BlackForest\Contao\Encore\EventListener\Frontend\AbstractIncludeSection
         public: true
 
     BlackForest\Contao\Encore\EventListener\Frontend\IncludeJavascriptCombineSectionListener:
-        parent: cb.encore.frontend_listener.include_head_synthetic
+        parent: BlackForest\Contao\Encore\EventListener\Frontend\AbstractIncludeSection
         public: true
 
     BlackForest\Contao\Encore\EventListener\Frontend\IncludeJQuerySectionListener:
-        parent: cb.encore.frontend_listener.include_head_synthetic
+        parent: BlackForest\Contao\Encore\EventListener\Frontend\AbstractIncludeSection
         public: true
 
     BlackForest\Contao\Encore\EventListener\Frontend\IncludeMooToolsSectionListener:
-        parent: cb.encore.frontend_listener.include_head_synthetic
+        parent: BlackForest\Contao\Encore\EventListener\Frontend\AbstractIncludeSection
         public: true
 
     BlackForest\Contao\Encore\EventListener\Frontend\IncludeHeadSectionListener:
-        parent: cb.encore.frontend_listener.include_head_synthetic
+        parent: BlackForest\Contao\Encore\EventListener\Frontend\AbstractIncludeSection
         public: true
 
     BlackForest\Contao\Encore\EventListener\Frontend\IncludeBodySectionListener:
-        parent: cb.encore.frontend_listener.include_head_synthetic
+        parent: BlackForest\Contao\Encore\EventListener\Frontend\AbstractIncludeSection
         public: true

@@ -26,10 +26,10 @@ use BlackForest\Contao\Encore\Helper\EncoreConstants;
 /**
  * This listener is for include the encore context in the jquery section.
  */
-final class IncludeJQuerySectionListener implements GetAssetAsHtmlTagInterface, FilterAssetsForJavascriptInterface
+final class IncludeJQuerySectionListener extends AbstractIncludeSection implements
+    GetAssetAsHtmlTagInterface,
+    FilterAssetsForJavascriptInterface
 {
-    use IncludeSectionTrait;
-
     /**
      * The include section name.
      *

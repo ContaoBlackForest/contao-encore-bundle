@@ -26,12 +26,10 @@ use BlackForest\Contao\Encore\Helper\EncoreConstants;
 /**
  * This listener is for include the encore context in the javascript combine section.
  */
-final class IncludeJavascriptCombineSectionListener implements
+final class IncludeJavascriptCombineSectionListener extends AbstractIncludeSection implements
     GetAssetAsFileInterface,
     FilterAssetsForJavascriptInterface
 {
-    use IncludeSectionTrait;
-
     /**
      * The include section name.
      *

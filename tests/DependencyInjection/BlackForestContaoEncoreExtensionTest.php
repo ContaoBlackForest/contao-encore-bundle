@@ -22,6 +22,7 @@ declare(strict_types=1);
 namespace BlackForest\Contao\Encore\Test\DependencyInjection;
 
 use BlackForest\Contao\Encore\DependencyInjection\BlackForestContaoEncoreExtension;
+use BlackForest\Contao\Encore\EventListener\Frontend\AbstractIncludeSection;
 use BlackForest\Contao\Encore\EventListener\Frontend\IncludeBodySectionListener;
 use BlackForest\Contao\Encore\EventListener\Frontend\IncludeCSSCombineSectionListener;
 use BlackForest\Contao\Encore\EventListener\Frontend\IncludeHeadSectionListener;
@@ -47,7 +48,7 @@ class BlackForestContaoEncoreExtensionTest extends TestCase
 
         $exceptedDefinitions = [
             'service_container',
-            'cb.encore.frontend_listener.include_head_synthetic',
+            AbstractIncludeSection::class,
             IncludeCSSCombineSectionListener::class,
             IncludeJavascriptCombineSectionListener::class,
             IncludeJQuerySectionListener::class,

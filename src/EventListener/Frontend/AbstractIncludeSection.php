@@ -30,30 +30,30 @@ use Symfony\WebpackEncoreBundle\Exception\EntrypointNotFoundException;
 use Symfony\WebpackEncoreBundle\Twig\EntryFilesTwigExtension;
 
 /**
- * This trait has the method's, for include the encore context in the section.
+ * This abstract class has the method's, for include the encore context in the section.
  */
-trait IncludeSectionTrait
+abstract class AbstractIncludeSection
 {
     /**
      * The webpack encore builds with the entry point path.
      *
      * @var array
      */
-    private $builds;
+    protected $builds;
 
     /**
      * The cache pool who have the entry point configuration.
      *
      * @var CacheItemPoolInterface
      */
-    private $cache;
+    protected $cache;
 
     /**
      * The entry files twig extension.
      *
      * @var EntryFilesTwigExtension
      */
-    private $twigExtension;
+    protected $twigExtension;
 
     /**
      * The constructor.
@@ -164,7 +164,7 @@ trait IncludeSectionTrait
      *
      * @return array
      */
-    private function getWebPackAssets(string $buildKey, string $entryPoint, string $type): array
+    protected function getWebPackAssets(string $buildKey, string $entryPoint, string $type): array
     {
         $assets = [];
         switch ($type) {
@@ -213,7 +213,7 @@ trait IncludeSectionTrait
      *
      * @return array
      */
-    private function filterConfigBySection(array $config): array
+    protected function filterConfigBySection(array $config): array
     {
         return \array_filter(
             $config,
@@ -236,7 +236,7 @@ trait IncludeSectionTrait
      *
      * @return LayoutModel|null
      */
-    private function getPageLayout()
+    protected function getPageLayout()
     {
         if (!($page = $this->getActivePage())
             || !($layout = $page->getRelated('layout'))
@@ -254,7 +254,7 @@ trait IncludeSectionTrait
      *
      * @SuppressWarnings(PHPMD.Superglobals)
      */
-    private function getActivePage(): ?PageModel
+    protected function getActivePage(): ?PageModel
     {
         return ($GLOBALS['objPage'] ?? null);
     }
@@ -268,7 +268,7 @@ trait IncludeSectionTrait
      *
      * @return void
      */
-    private function cacheWarmUp(string $path, CacheItemPoolInterface $cache, string $buildKey): void
+    protected function cacheWarmUp(string $path, CacheItemPoolInterface $cache, string $buildKey): void
     {
         // If the file does not exist then just skip past this entry point.
         if (!\file_exists($path)) {
@@ -291,7 +291,7 @@ trait IncludeSectionTrait
      *
      * @return CacheItemPoolInterface
      */
-    private function cache(): CacheItemPoolInterface
+    protected function cache(): CacheItemPoolInterface
     {
         return $this->cache;
     }
@@ -301,7 +301,7 @@ trait IncludeSectionTrait
      *
      * @return EntryFilesTwigExtension
      */
-    private function includeSectionName(): string
+    protected function includeSectionName(): string
     {
         return $this->includeSectionName;
     }
@@ -311,7 +311,7 @@ trait IncludeSectionTrait
      *
      * @return EntryFilesTwigExtension
      */
-    private function twigExtension(): EntryFilesTwigExtension
+    protected function twigExtension(): EntryFilesTwigExtension
     {
         return $this->twigExtension;
     }

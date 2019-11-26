@@ -26,10 +26,10 @@ use BlackForest\Contao\Encore\Helper\EncoreConstants;
 /**
  * This listener is for include the encore context in the css combine section.
  */
-final class IncludeCSSCombineSectionListener implements GetAssetAsFileInterface, FilterAssetsForCssInterface
+final class IncludeCSSCombineSectionListener extends AbstractIncludeSection implements
+    GetAssetAsFileInterface,
+    FilterAssetsForCssInterface
 {
-    use IncludeSectionTrait;
-
     /**
      * The include section name.
      *
