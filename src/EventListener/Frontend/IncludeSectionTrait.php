@@ -74,7 +74,7 @@ trait IncludeSectionTrait
      *
      * @return string
      */
-    public function includeToSection(string $buffer): string
+    public function __invoke(string $buffer): string
     {
         if (!($layout = $this->getPageLayout())
             || !$layout->useEncore

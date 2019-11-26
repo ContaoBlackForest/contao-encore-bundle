@@ -78,7 +78,7 @@ $GLOBALS['TL_DCA']['tl_layout']['fields'] = array_merge(
                             'includeBlankOption' => true,
                             'style'              => 'width:100%'
                         ],
-                        'options_callback' => [EncoreContextOptionsListener::class, 'collect']
+                        'options_callback' => [EncoreContextOptionsListener::class, '__invoke']
                     ],
                     'section' => [
                         'label'            => &$GLOBALS['TL_LANG']['tl_layout']['encoreSection'],

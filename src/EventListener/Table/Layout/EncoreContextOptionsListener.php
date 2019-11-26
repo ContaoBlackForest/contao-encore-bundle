@@ -63,7 +63,7 @@ class EncoreContextOptionsListener
      *
      * @return array
      */
-    public function collect(Widget $widget): array
+    public function __invoke(Widget $widget): array
     {
         $columnFields = $widget->columnFields;
         if (!isset($columnFields['context'])) {

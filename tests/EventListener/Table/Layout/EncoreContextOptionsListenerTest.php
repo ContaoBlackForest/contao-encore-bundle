@@ -88,7 +88,7 @@ class EncoreContextOptionsListenerTest extends TestCase
         }
 
         $listener = new EncoreContextOptionsListener($builds, $cache);
-        $options  = $listener->collect($widget);
+        $options  = $listener->__invoke($widget);
 
         if (!$hasContext) {
             $this->assertNull($cache->getItem('_default')->get());

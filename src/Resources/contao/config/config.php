@@ -29,9 +29,9 @@ use BlackForest\Contao\Encore\EventListener\Frontend\IncludeMooToolsSectionListe
  * Hooks.
  */
 
-$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] = [IncludeCSSCombineSectionListener::class, 'includeToSection'];
-$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] = [IncludeJavascriptCombineSectionListener::class, 'includeToSection'];
-$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] = [IncludeJQuerySectionListener::class , 'includeToSection'];
-$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] = [IncludeMooToolsSectionListener::class, 'includeToSection'];
-$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] = [IncludeHeadSectionListener::class, 'includeToSection'];
-$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] = [IncludeBodySectionListener::class, 'includeToSection'];
+$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] = [IncludeCSSCombineSectionListener::class, '__invoke'];
+$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] = [IncludeJavascriptCombineSectionListener::class, '__invoke'];
+$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] = [IncludeJQuerySectionListener::class , '__invoke'];
+$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] = [IncludeMooToolsSectionListener::class, '__invoke'];
+$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] = [IncludeHeadSectionListener::class, '__invoke'];
+$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] = [IncludeBodySectionListener::class, '__invoke'];

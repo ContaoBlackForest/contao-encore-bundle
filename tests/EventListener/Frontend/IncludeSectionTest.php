@@ -330,7 +330,7 @@ class IncludeSectionTest extends TestCase
             $this->createTwigExtension($cache)
         );
 
-        $includeSection->includeToSection('');
+        $includeSection->__invoke('');
 
         if (!$hasPageLayut || !$useEncore || !$hasEncoreConfig) {
             $this->assertNull($cache->getItem('_default')->get());
@@ -628,7 +628,7 @@ class IncludeSectionTest extends TestCase
             $this->createTwigExtension($cache)
         );
 
-        $includeSection->includeToSection('');
+        $includeSection->__invoke('');
 
         if (!$hasPageLayut || !$useEncore || !$hasEncoreConfig) {
             $this->assertNull($cache->getItem('_default')->get());
@@ -930,7 +930,7 @@ class IncludeSectionTest extends TestCase
             $this->createTwigExtension($cache)
         );
 
-        $includeSection->includeToSection('');
+        $includeSection->__invoke('');
 
         if (!$hasPageLayut || !$useEncore || !$hasEncoreConfig) {
             $this->assertNull($cache->getItem('_default')->get());
@@ -1224,7 +1224,7 @@ class IncludeSectionTest extends TestCase
             $this->createTwigExtension($cache)
         );
 
-        $includeSection->includeToSection('');
+        $includeSection->__invoke('');
 
         if (!$hasPageLayut || !$useEncore || !$hasEncoreConfig) {
             $this->assertNull($cache->getItem('_default')->get());
@@ -1521,7 +1521,7 @@ class IncludeSectionTest extends TestCase
             $this->createTwigExtension($cache)
         );
 
-        $includeSection->includeToSection('');
+        $includeSection->__invoke('');
 
         if (!$hasPageLayut || !$useEncore || !$hasEncoreConfig) {
             $this->assertNull($cache->getItem('_default')->get());
@@ -1818,7 +1818,7 @@ class IncludeSectionTest extends TestCase
             $this->createTwigExtension($cache)
         );
 
-        $includeSection->includeToSection('');
+        $includeSection->__invoke('');
 
         if (!$hasPageLayut || !$useEncore || !$hasEncoreConfig) {
             $this->assertNull($cache->getItem('_default')->get());
