@@ -57,10 +57,10 @@ class BlackForestContaoEncoreExtensionTest extends TestCase
             EncoreContextOptionsListener::class
         ];
 
-        $this->assertCount(\count($exceptedDefinitions), $container->getDefinitions());
+        self::assertCount(\count($exceptedDefinitions), $container->getDefinitions());
 
         foreach ($exceptedDefinitions as $exceptedDefinitionName) {
-            $this->assertTrue($container->hasDefinition($exceptedDefinitionName));
+            self::assertTrue($container->hasDefinition($exceptedDefinitionName));
         }
     }
 }

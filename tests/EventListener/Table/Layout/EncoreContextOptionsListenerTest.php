@@ -91,8 +91,8 @@ class EncoreContextOptionsListenerTest extends TestCase
         $options  = $listener->__invoke($widget);
 
         if (!$hasContext) {
-            $this->assertNull($cache->getItem('_default')->get());
-            $this->assertSame([], $options);
+            self::assertNull($cache->getItem('_default')->get());
+            self::assertSame([], $options);
 
             return;
         }
@@ -143,8 +143,8 @@ class EncoreContextOptionsListenerTest extends TestCase
             '_default::other_entry::js' => 'other_entry::js',
         ];
 
-        $this->assertSame($expectedCache, $cache->getItem('_default')->get());
-        $this->assertSame($expectedOptions, $options);
+        self::assertSame($expectedCache, $cache->getItem('_default')->get());
+        self::assertSame($expectedOptions, $options);
     }
 
     private function setupContainerWithConfiguration(): void

@@ -344,19 +344,19 @@ class IncludeSectionTest extends TestCase
         $includeSection->__invoke('');
 
         if (!$hasPageLayut || !$useEncore || !$hasEncoreConfig) {
-            $this->assertNull($cache->getItem('_default')->get());
+            self::assertNull($cache->getItem('_default')->get());
 
             return;
         }
 
         if (!\count($expected)) {
-            $this->assertArrayNotHasKey('TL_BODY', $GLOBALS);
+            self::assertArrayNotHasKey('TL_BODY', $GLOBALS);
 
             return;
         }
 
-        $this->assertSame($expected, $GLOBALS['TL_BODY']);
-        $this->assertSame('TL_BODY', EncoreConstants::SECTION_BODY);
+        self::assertSame($expected, $GLOBALS['TL_BODY']);
+        self::assertSame('TL_BODY', EncoreConstants::SECTION_BODY);
 
         unset($GLOBALS['TL_BODY']);
     }
@@ -642,19 +642,19 @@ class IncludeSectionTest extends TestCase
         $includeSection->__invoke('');
 
         if (!$hasPageLayut || !$useEncore || !$hasEncoreConfig) {
-            $this->assertNull($cache->getItem('_default')->get());
+            self::assertNull($cache->getItem('_default')->get());
 
             return;
         }
 
         if (!\count($expected)) {
-            $this->assertArrayNotHasKey('TL_USER_CSS', $GLOBALS);
+            self::assertArrayNotHasKey('TL_USER_CSS', $GLOBALS);
 
             return;
         }
 
-        $this->assertSame($expected, $GLOBALS['TL_USER_CSS']);
-        $this->assertSame('TL_USER_CSS', EncoreConstants::SECTION_USERCSS);
+        self::assertSame($expected, $GLOBALS['TL_USER_CSS']);
+        self::assertSame('TL_USER_CSS', EncoreConstants::SECTION_USERCSS);
 
         unset($GLOBALS['TL_USER_CSS']);
     }
@@ -944,19 +944,19 @@ class IncludeSectionTest extends TestCase
         $includeSection->__invoke('');
 
         if (!$hasPageLayut || !$useEncore || !$hasEncoreConfig) {
-            $this->assertNull($cache->getItem('_default')->get());
+            self::assertNull($cache->getItem('_default')->get());
 
             return;
         }
 
         if (!\count($expected)) {
-            $this->assertArrayNotHasKey('TL_HEAD', $GLOBALS);
+            self::assertArrayNotHasKey('TL_HEAD', $GLOBALS);
 
             return;
         }
 
-        $this->assertSame($expected, $GLOBALS['TL_HEAD']);
-        $this->assertSame('TL_HEAD', EncoreConstants::SECTION_HEAD);
+        self::assertSame($expected, $GLOBALS['TL_HEAD']);
+        self::assertSame('TL_HEAD', EncoreConstants::SECTION_HEAD);
 
         unset($GLOBALS['TL_HEAD']);
     }
@@ -1238,19 +1238,19 @@ class IncludeSectionTest extends TestCase
         $includeSection->__invoke('');
 
         if (!$hasPageLayut || !$useEncore || !$hasEncoreConfig) {
-            $this->assertNull($cache->getItem('_default')->get());
+            self::assertNull($cache->getItem('_default')->get());
 
             return;
         }
 
         if (!\count($expected)) {
-            $this->assertArrayNotHasKey('TL_JAVASCRIPT', $GLOBALS);
+            self::assertArrayNotHasKey('TL_JAVASCRIPT', $GLOBALS);
 
             return;
         }
 
-        $this->assertSame($expected, $GLOBALS['TL_JAVASCRIPT']);
-        $this->assertSame('TL_JAVASCRIPT', EncoreConstants::SECTION_JAVASCRIPT);
+        self::assertSame($expected, $GLOBALS['TL_JAVASCRIPT']);
+        self::assertSame('TL_JAVASCRIPT', EncoreConstants::SECTION_JAVASCRIPT);
 
         unset($GLOBALS['TL_JAVASCRIPT']);
     }
@@ -1535,19 +1535,19 @@ class IncludeSectionTest extends TestCase
         $includeSection->__invoke('');
 
         if (!$hasPageLayut || !$useEncore || !$hasEncoreConfig) {
-            $this->assertNull($cache->getItem('_default')->get());
+            self::assertNull($cache->getItem('_default')->get());
 
             return;
         }
 
         if (!\count($expected)) {
-            $this->assertArrayNotHasKey('TL_JQUERY', $GLOBALS);
+            self::assertArrayNotHasKey('TL_JQUERY', $GLOBALS);
 
             return;
         }
 
-        $this->assertSame($expected, $GLOBALS['TL_JQUERY']);
-        $this->assertSame('TL_JQUERY', EncoreConstants::SECTION_JQUERY);
+        self::assertSame($expected, $GLOBALS['TL_JQUERY']);
+        self::assertSame('TL_JQUERY', EncoreConstants::SECTION_JQUERY);
 
         unset($GLOBALS['TL_JQUERY']);
     }
@@ -1832,19 +1832,19 @@ class IncludeSectionTest extends TestCase
         $includeSection->__invoke('');
 
         if (!$hasPageLayut || !$useEncore || !$hasEncoreConfig) {
-            $this->assertNull($cache->getItem('_default')->get());
+            self::assertNull($cache->getItem('_default')->get());
 
             return;
         }
 
         if (!\count($expected)) {
-            $this->assertArrayNotHasKey('TL_MOOTOOLS', $GLOBALS);
+            self::assertArrayNotHasKey('TL_MOOTOOLS', $GLOBALS);
 
             return;
         }
 
-        $this->assertSame($expected, $GLOBALS['TL_MOOTOOLS']);
-        $this->assertSame('TL_MOOTOOLS', EncoreConstants::SECTION_MOOTOOLS);
+        self::assertSame($expected, $GLOBALS['TL_MOOTOOLS']);
+        self::assertSame('TL_MOOTOOLS', EncoreConstants::SECTION_MOOTOOLS);
 
         unset($GLOBALS['TL_MOOTOOLS']);
     }

@@ -72,11 +72,11 @@ class PluginTest extends TestCase
         $bundles = $plugin->getBundles($parser);
 
         foreach ($bundles as $bundle) {
-            $this->assertSame($config->getName(), $bundle->getName());
-            $this->assertSame($config->getReplace(), $bundle->getReplace());
-            $this->assertSame($config->getLoadAfter(), $bundle->getLoadAfter());
-            $this->assertSame($config->loadInProduction(), $bundle->loadInProduction());
-            $this->assertSame($config->loadInDevelopment(), $bundle->loadInDevelopment());
+            self::assertSame($config->getName(), $bundle->getName());
+            self::assertSame($config->getReplace(), $bundle->getReplace());
+            self::assertSame($config->getLoadAfter(), $bundle->getLoadAfter());
+            self::assertSame($config->loadInProduction(), $bundle->loadInProduction());
+            self::assertSame($config->loadInDevelopment(), $bundle->loadInDevelopment());
         }
     }
 

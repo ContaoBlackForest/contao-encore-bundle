@@ -42,12 +42,12 @@ class DataContainer extends TestCase
 
         include \dirname(__DIR__, 2) . '/src/Resources/contao/dca/tl_layout.php';
 
-        $this->assertSame('{encore_legend:hide},useEncore', $GLOBALS['TL_DCA']['tl_layout']['palettes']);
-        $this->assertSame(['useEncore'], $GLOBALS['TL_DCA']['tl_layout']['palettes']['__selector__']);
-        $this->assertTrue(isset($GLOBALS['TL_DCA']['tl_layout']['fields']['useEncore']));
-        $this->assertTrue(isset($GLOBALS['TL_DCA']['tl_layout']['fields']['encoreConfig']));
-        $this->assertTrue(isset($GLOBALS['TL_DCA']['tl_layout']['subpalettes']['useEncore']));
-        $this->assertSame('encoreConfig', $GLOBALS['TL_DCA']['tl_layout']['subpalettes']['useEncore']);
+        self::assertSame('{encore_legend:hide},useEncore', $GLOBALS['TL_DCA']['tl_layout']['palettes']);
+        self::assertSame(['useEncore'], $GLOBALS['TL_DCA']['tl_layout']['palettes']['__selector__']);
+        self::assertTrue(isset($GLOBALS['TL_DCA']['tl_layout']['fields']['useEncore']));
+        self::assertTrue(isset($GLOBALS['TL_DCA']['tl_layout']['fields']['encoreConfig']));
+        self::assertTrue(isset($GLOBALS['TL_DCA']['tl_layout']['subpalettes']['useEncore']));
+        self::assertSame('encoreConfig', $GLOBALS['TL_DCA']['tl_layout']['subpalettes']['useEncore']);
 
         unset($GLOBALS['TL_DCA']);
     }

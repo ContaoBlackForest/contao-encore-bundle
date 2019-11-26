@@ -59,7 +59,7 @@ class AddArgumentsPassTest extends TestCase
         foreach ($definitions as $id) {
             $definition = $container->getDefinition($id);
 
-            $this->assertSame($expected, $definition->getArgument(0));
+            self::assertSame($expected, $definition->getArgument(0));
         }
     }
 }
