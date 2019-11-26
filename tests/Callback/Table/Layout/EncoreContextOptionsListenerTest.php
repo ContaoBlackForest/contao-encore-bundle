@@ -19,9 +19,9 @@
 
 declare(strict_types=1);
 
-namespace BlackForest\Contao\Encore\Test\EventListener\Table\Layout;
+namespace BlackForest\Contao\Encore\Test\Callback\Table\Layout;
 
-use BlackForest\Contao\Encore\EventListener\Table\Layout\EncoreContextOptionsListener;
+use BlackForest\Contao\Encore\Callback\Table\Layout\EncoreContextOptionsListener;
 use Contao\System;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver;
@@ -32,7 +32,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
- * @covers \BlackForest\Contao\Encore\EventListener\Table\Layout\EncoreContextOptionsListener
+ * @covers \BlackForest\Contao\Encore\Callback\Table\Layout\EncoreContextOptionsListener
  */
 class EncoreContextOptionsListenerTest extends TestCase
 {

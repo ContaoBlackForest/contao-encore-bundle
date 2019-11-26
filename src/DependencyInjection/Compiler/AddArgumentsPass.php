@@ -21,7 +21,7 @@ declare(strict_types=1);
 
 namespace BlackForest\Contao\Encore\DependencyInjection\Compiler;
 
-use BlackForest\Contao\Encore\EventListener\Table\Layout\EncoreContextOptionsListener;
+use BlackForest\Contao\Encore\Callback\Table\Layout\EncoreContextOptionsListener;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

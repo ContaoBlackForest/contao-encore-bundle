@@ -38,6 +38,6 @@ final class BlackForestContaoEncoreExtension extends Extension
     {
         $loader = new YamlFileLoader($container, new FileLocator(\dirname(__DIR__) . '/Resources/config'));
         $loader->load('frontend/event_listener.yml');
-        $loader->load('table/layout_listener.yml');
+        $loader->load('table/callback.yml');
     }
 }

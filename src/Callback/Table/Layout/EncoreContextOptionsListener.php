@@ -19,7 +19,7 @@
 
 declare(strict_types=1);
 
-namespace BlackForest\Contao\Encore\EventListener\Table\Layout;
+namespace BlackForest\Contao\Encore\Callback\Table\Layout;
 
 use Contao\Widget;
 use MenAtWork\MultiColumnWizardBundle\Contao\Widgets\MultiColumnWizard;

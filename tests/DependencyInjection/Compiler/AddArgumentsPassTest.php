@@ -23,7 +23,7 @@ namespace BlackForest\Contao\Encore\Test\DependencyInjection\Compiler;
 
 use BlackForest\Contao\Encore\DependencyInjection\BlackForestContaoEncoreExtension;
 use BlackForest\Contao\Encore\DependencyInjection\Compiler\AddArgumentsPass;
-use BlackForest\Contao\Encore\EventListener\Table\Layout\EncoreContextOptionsListener;
+use BlackForest\Contao\Encore\Callback\Table\Layout\EncoreContextOptionsListener;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\WebpackEncoreBundle\DependencyInjection\WebpackEncoreExtension;

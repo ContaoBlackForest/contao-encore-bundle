@@ -21,7 +21,7 @@
  * The table configuration for tl_layout.
  */
 
-use BlackForest\Contao\Encore\EventListener\Table\Layout\EncoreContextOptionsListener;
+use BlackForest\Contao\Encore\Callback\Table\Layout\EncoreContextOptionsListener;
 use BlackForest\Contao\Encore\Helper\EncoreConstants;
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
 
