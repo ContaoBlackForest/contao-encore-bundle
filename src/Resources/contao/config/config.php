@@ -24,7 +24,6 @@ use BlackForest\Contao\Encore\EventListener\Frontend\IncludeJavascriptCombineSec
 use BlackForest\Contao\Encore\EventListener\Frontend\IncludeJQuerySectionListener;
 use BlackForest\Contao\Encore\EventListener\Frontend\IncludeMooToolsSectionListener;
 
-
 /*
  * Hooks.
  */
