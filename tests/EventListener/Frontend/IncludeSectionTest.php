@@ -48,6 +48,17 @@ use Symfony\WebpackEncoreBundle\Twig\EntryFilesTwigExtension;
  */
 class IncludeSectionTest extends TestCase
 {
+    /**
+     * @inheritdoc
+     */
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+        // Some class mapping for Contao 4.4.
+        self::aliasContaoClass('LayoutModel');
+        self::aliasContaoClass('PageModel');
+    }
+
     public function dataProviderIncludeBodySection(): array
     {
         return [
@@ -1968,5 +1979,38 @@ class IncludeSectionTest extends TestCase
                     return $pageLayoutData[$key] ?? null;
                 }
             );
+    }
+
+    /**
+     * Mapping between root namespace of contao and the contao namespace.
+     * Can map class, interface and trait.
+     *
+     * @param string $class The name of the class
+     *
+     * @return void
+     */
+    private static function aliasContaoClass($class): void
+    {
+        // Class.
+        if (!\class_exists($class, true) && \class_exists('\\Contao\\' . $class, true)) {
+            if (!\class_exists($class, false)) {
+                \class_alias('\\Contao\\' . $class, $class);
+            }
+            return;
+        }
+        // Trait.
+        if (!\trait_exists($class, true) && \trait_exists('\\Contao\\' . $class, true)) {
+            if (!\trait_exists($class, false)) {
+                \class_alias('\\Contao\\' . $class, $class);
+            }
+            return;
+        }
+        // Interface.
+        if (!\interface_exists($class, true) && \interface_exists('\\Contao\\' . $class, true)) {
+            if (!\interface_exists($class, false)) {
+                \class_alias('\\Contao\\' . $class, $class);
+            }
+            return;
+        }
     }
 }
