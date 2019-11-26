@@ -21,6 +21,7 @@
  * The table configuration for tl_layout.
  */
 
+use BlackForest\Contao\Encore\EventListener\Table\Layout\EncoreContextOptionsListener;
 use BlackForest\Contao\Encore\Helper\EncoreConstants;
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
 
@@ -77,7 +78,7 @@ $GLOBALS['TL_DCA']['tl_layout']['fields'] = array_merge(
                             'includeBlankOption' => true,
                             'style'              => 'width:100%'
                         ],
-                        'options_callback' => ['cb.encore.table_layout_listener.encore_context_options', 'collect']
+                        'options_callback' => [EncoreContextOptionsListener::class, 'collect']
                     ],
                     'section' => [
                         'label'            => &$GLOBALS['TL_LANG']['tl_layout']['encoreSection'],

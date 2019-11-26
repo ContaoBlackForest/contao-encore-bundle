@@ -1,6 +1,5 @@
 services:
-    cb.encore.table_layout_listener.encore_context_options:
-        class: BlackForest\Contao\Encore\EventListener\Table\Layout\EncoreContextOptionsListener
+    BlackForest\Contao\Encore\EventListener\Table\Layout\EncoreContextOptionsListener:
         public: true
         arguments:
             - # This argument where set with the add arguments pass and comes from webpack_encore.entrypoint_lookup.cache_warmer.

@@ -23,6 +23,7 @@ namespace BlackForest\Contao\Encore\Test\DependencyInjection\Compiler;
 
 use BlackForest\Contao\Encore\DependencyInjection\BlackForestContaoEncoreExtension;
 use BlackForest\Contao\Encore\DependencyInjection\Compiler\AddArgumentsPass;
+use BlackForest\Contao\Encore\EventListener\Table\Layout\EncoreContextOptionsListener;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\WebpackEncoreBundle\DependencyInjection\WebpackEncoreExtension;
@@ -51,7 +52,7 @@ class AddArgumentsPassTest extends TestCase
         ];
 
         $definitions = [
-            'cb.encore.table_layout_listener.encore_context_options',
+            EncoreContextOptionsListener::class,
             'cb.encore.frontend_listener.include_head_synthetic'
         ];
 

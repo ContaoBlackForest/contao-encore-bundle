@@ -22,6 +22,13 @@ declare(strict_types=1);
 namespace BlackForest\Contao\Encore\Test\DependencyInjection;
 
 use BlackForest\Contao\Encore\DependencyInjection\BlackForestContaoEncoreExtension;
+use BlackForest\Contao\Encore\EventListener\Frontend\IncludeBodySectionListener;
+use BlackForest\Contao\Encore\EventListener\Frontend\IncludeCSSCombineSectionListener;
+use BlackForest\Contao\Encore\EventListener\Frontend\IncludeHeadSectionListener;
+use BlackForest\Contao\Encore\EventListener\Frontend\IncludeJavascriptCombineSectionListener;
+use BlackForest\Contao\Encore\EventListener\Frontend\IncludeJQuerySectionListener;
+use BlackForest\Contao\Encore\EventListener\Frontend\IncludeMooToolsSectionListener;
+use BlackForest\Contao\Encore\EventListener\Table\Layout\EncoreContextOptionsListener;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -41,13 +48,13 @@ class BlackForestContaoEncoreExtensionTest extends TestCase
         $exceptedDefinitions = [
             'service_container',
             'cb.encore.frontend_listener.include_head_synthetic',
-            'cb.encore.frontend_listener.include_css_combine_section',
-            'cb.encore.frontend_listener.include_javascript_combine_section',
-            'cb.encore.frontend_listener.include_jquery_section',
-            'cb.encore.frontend_listener.include_mootools_section',
-            'cb.encore.frontend_listener.include_head_section',
-            'cb.encore.frontend_listener.include_body_section',
-            'cb.encore.table_layout_listener.encore_context_options',
+            IncludeCSSCombineSectionListener::class,
+            IncludeJavascriptCombineSectionListener::class,
+            IncludeJQuerySectionListener::class,
+            IncludeMooToolsSectionListener::class,
+            IncludeHeadSectionListener::class,
+            IncludeBodySectionListener::class,
+            EncoreContextOptionsListener::class
         ];
 
         $this->assertCount(\count($exceptedDefinitions), $container->getDefinitions());

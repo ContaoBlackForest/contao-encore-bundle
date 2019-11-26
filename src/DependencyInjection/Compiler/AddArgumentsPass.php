@@ -19,6 +19,7 @@
 
 namespace BlackForest\Contao\Encore\DependencyInjection\Compiler;
 
+use BlackForest\Contao\Encore\EventListener\Table\Layout\EncoreContextOptionsListener;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -37,7 +38,7 @@ class AddArgumentsPass implements CompilerPassInterface
             ->getArgument(0);
 
         $container
-            ->getDefinition('cb.encore.table_layout_listener.encore_context_options')
+            ->getDefinition(EncoreContextOptionsListener::class)
             ->replaceArgument(0, $builds);
 
         $container

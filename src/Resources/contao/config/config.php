@@ -17,24 +17,21 @@
  * @filesource
  */
 
+use BlackForest\Contao\Encore\EventListener\Frontend\IncludeBodySectionListener;
+use BlackForest\Contao\Encore\EventListener\Frontend\IncludeCSSCombineSectionListener;
+use BlackForest\Contao\Encore\EventListener\Frontend\IncludeHeadSectionListener;
+use BlackForest\Contao\Encore\EventListener\Frontend\IncludeJavascriptCombineSectionListener;
+use BlackForest\Contao\Encore\EventListener\Frontend\IncludeJQuerySectionListener;
+use BlackForest\Contao\Encore\EventListener\Frontend\IncludeMooToolsSectionListener;
+
+
 /*
  * Hooks.
  */
 
-$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] =
-    ['cb.encore.frontend_listener.include_css_combine_section', 'includeToSection'];
-
-$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] =
-    ['cb.encore.frontend_listener.include_javascript_combine_section', 'includeToSection'];
-
-$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] =
-    ['cb.encore.frontend_listener.include_jquery_section', 'includeToSection'];
-
-$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] =
-    ['cb.encore.frontend_listener.include_mootools_section', 'includeToSection'];
-
-$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] =
-    ['cb.encore.frontend_listener.include_head_section', 'includeToSection'];
-
-$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] =
-    ['cb.encore.frontend_listener.include_body_section', 'includeToSection'];
+$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] = [IncludeCSSCombineSectionListener::class, 'includeToSection'];
+$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] = [IncludeJavascriptCombineSectionListener::class, 'includeToSection'];
+$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] = [IncludeJQuerySectionListener::class , 'includeToSection'];
+$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] = [IncludeMooToolsSectionListener::class, 'includeToSection'];
+$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] = [IncludeHeadSectionListener::class, 'includeToSection'];
+$GLOBALS['TL_HOOKS']['replaceDynamicScriptTags'][] = [IncludeBodySectionListener::class, 'includeToSection'];
