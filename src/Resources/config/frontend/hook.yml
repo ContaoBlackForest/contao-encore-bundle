@@ -1,6 +1,6 @@
 services:
     BlackForest\Contao\Encore\Hook\Frontend\AbstractIncludeSection:
-        public: true
+        public: false
         abstract: true
         arguments:
             # This argument where set with the add arguments pass and comes from webpack_encore.entrypoint_lookup.cache_warmer.
@@ -10,24 +10,48 @@ services:
 
     BlackForest\Contao\Encore\Hook\Frontend\IncludeCSSCombineSectionListener:
         parent: BlackForest\Contao\Encore\Hook\Frontend\AbstractIncludeSection
-        public: true
+        public: false
+        tags:
+            -   name: contao.hook
+                hook: replaceDynamicScriptTags
+                method: __invoke
 
     BlackForest\Contao\Encore\Hook\Frontend\IncludeJavascriptCombineSectionListener:
         parent: BlackForest\Contao\Encore\Hook\Frontend\AbstractIncludeSection
-        public: true
+        public: false
+        tags:
+            -   name: contao.hook
+                hook: replaceDynamicScriptTags
+                method: __invoke
 
     BlackForest\Contao\Encore\Hook\Frontend\IncludeJQuerySectionListener:
         parent: BlackForest\Contao\Encore\Hook\Frontend\AbstractIncludeSection
-        public: true
+        public: false
+        tags:
+            -   name: contao.hook
+                hook: replaceDynamicScriptTags
+                method: __invoke
 
     BlackForest\Contao\Encore\Hook\Frontend\IncludeMooToolsSectionListener:
         parent: BlackForest\Contao\Encore\Hook\Frontend\AbstractIncludeSection
-        public: true
+        public: false
+        tags:
+            -   name: contao.hook
+                hook: replaceDynamicScriptTags
+                method: __invoke
 
     BlackForest\Contao\Encore\Hook\Frontend\IncludeHeadSectionListener:
         parent: BlackForest\Contao\Encore\Hook\Frontend\AbstractIncludeSection
-        public: true
+        public: false
+        tags:
+            -   name: contao.hook
+                hook: replaceDynamicScriptTags
+                method: __invoke
 
     BlackForest\Contao\Encore\Hook\Frontend\IncludeBodySectionListener:
         parent: BlackForest\Contao\Encore\Hook\Frontend\AbstractIncludeSection
-        public: true
+        public: false
+        tags:
+            -   name: contao.hook
+                hook: replaceDynamicScriptTags
+                method: __invoke
