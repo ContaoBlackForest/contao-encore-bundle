@@ -1,0 +1,11 @@
+{
+  "build/app1.js": "/build/app1.js",
+  "build/app2.js": "/build/app2.js",
+  "build/app3.js": "/build/app3.js",
+  "build/styles.css": "/build/styles.css",
+  "build/styles2.css": "/build/styles2.css",
+  "build-dev/app1.js": "http://localhost:8080/build/app1.js",
+  "build-dev/app2.js": "http://localhost:8080/build/app2.js",
+  "build-dev/styles.css": "http://localhost:8080/build/styles.css",
+  "build-dev/styles2.css": "http://localhost:8080/build/styles2.css"
+}

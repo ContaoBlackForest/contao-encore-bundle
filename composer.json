@@ -28,12 +28,26 @@
     "require": {
         "php": "^7.1.3",
         "contao/core-bundle": "^4.4",
-        "symfony/dependency-injection": "^3.3 || ^4.0",
-        "symfony/webpack-encore-bundle": "^1.5"
+        "contao-community-alliance/contao-polyfill-bundle": "^1.0",
+        "menatwork/contao-multicolumnwizard-bundle": "^3.4",
+        "symfony/webpack-encore-bundle": "^1.5",
+        "symfony/asset": "^3.3 || ^4.1",
+        "symfony/cache": "^3.3 || ^4.1",
+        "symfony/config": "^3.3 || ^4.1",
+        "symfony/dependency-injection": "^3.3 || ^4.1",
+        "symfony/event-dispatcher": "^3.3 || ^4.1",
+        "symfony/http-kernel": "^3.3 || ^4.1",
+        "psr/cache": "^1.0",
+        "ext-filter": "*"
     },
     "require-dev": {
+        "contao/manager-plugin": "^2.1",
+        "friendsofsymfony/http-cache": "^2.0",
+        "php-http/mock-client": "^1.0",
+        "doctrine/dbal": "^2.5",
         "phpcq/all-tasks": "^1.2",
-        "contao/manager-plugin": "^2.1"
+        "phpunit/phpunit": "^7.5 || ^8.4",
+        "psr/container": "^1.0"
     },
     "autoload": {
         "psr-4": {
@@ -42,7 +56,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "BlackForest\\Contao\\Encore\\Test\\": "tests/Test"
+            "BlackForest\\Contao\\Encore\\Test\\": "tests"
         }
     },
     "extra": {
