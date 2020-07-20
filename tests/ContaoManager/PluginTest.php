@@ -28,6 +28,7 @@ use Contao\ManagerPlugin\Bundle\Config\ConfigInterface;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use Contao\ManagerPlugin\Config\ContainerBuilder;
 use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\WebpackEncoreBundle\WebpackEncoreBundle;
 
 /**
@@ -54,7 +55,7 @@ class PluginTest extends TestCase
         $config
             ->expects($this->exactly(2))
             ->method('getLoadAfter')
-            ->willReturn([], [ContaoCoreBundle::class, WebpackEncoreBundle::class]);
+            ->willReturn([FrameworkBundle::class], [ContaoCoreBundle::class, WebpackEncoreBundle::class]);
 
         $config
             ->expects($this->exactly(2))

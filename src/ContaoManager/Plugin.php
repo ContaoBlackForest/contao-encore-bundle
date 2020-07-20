@@ -28,6 +28,7 @@ use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use Contao\ManagerPlugin\Config\ContainerBuilder;
 use Contao\ManagerPlugin\Config\ExtensionPluginInterface;
+use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\WebpackEncoreBundle\WebpackEncoreBundle;
 
 /**
@@ -41,7 +42,7 @@ final class Plugin implements BundlePluginInterface, ExtensionPluginInterface
     public function getBundles(ParserInterface $parser): array
     {
         return [
-            BundleConfig::create(WebpackEncoreBundle::class),
+            BundleConfig::create(WebpackEncoreBundle::class)->setLoadAfter([FrameworkBundle::class]),
             BundleConfig::create(BlackForestContaoEncoreBundle::class)
                 ->setLoadAfter(
                     [
