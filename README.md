@@ -14,9 +14,22 @@ The pre configuration for the extension is:
 ```yml
 webpack_encore:
     output_path: '%kernel.project_dir%/web/layout'
+
+framework:
+    assets:
+        json_manifest_path: '%kernel.project_dir%/web/layout/manifest.json'
 ```
 
 How to use Webpack Encore can you read [here](https://github.com/symfony/webpack-encore-bundle) .
+
+It is also possible to load assets individually in a template:
+```php
+# For Contao <= 4.4
+System::getContainer()->get('contao-webpack-encore')->asset('web/layout/tinymce.css');
+
+# For Contao > 4.5
+$this->asset('web/layout/tinymce.css');
+```
 
 Use in Contao
 -------------

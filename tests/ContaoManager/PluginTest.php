@@ -89,10 +89,30 @@ class PluginTest extends TestCase
 
         static::assertSame([], $plugin->getExtensionConfig('foo', [], $container));
         static::assertSame(['foo'], $plugin->getExtensionConfig('foo', ['foo'], $container));
-        static::assertSame(['hasConfig'], $plugin->getExtensionConfig('webpack_encore', ['hasConfig'], $container));
+        static::assertSame(
+            ['hasConfig', ['output_path' => 'configured']],
+            $plugin->getExtensionConfig('webpack_encore', ['hasConfig', ['output_path' => 'configured']], $container)
+        );
+        static::assertSame(
+            ['hasConfig', ['output_path' => '%kernel.project_dir%/web/layout']],
+            $plugin->getExtensionConfig('webpack_encore', ['hasConfig'], $container)
+        );
+        static::assertSame(
+            ['hasConfig', ['output_path' => '%kernel.project_dir%/web/layout']],
+            $plugin->getExtensionConfig('webpack_encore', ['hasConfig'], $container)
+        );
         static::assertSame(
             [['output_path' => '%kernel.project_dir%/web/layout']],
             $plugin->getExtensionConfig('webpack_encore', [], $container)
+        );
+
+        static::assertSame(
+            [['assets' => ['json_manifest_path' => '%kernel.project_dir%/web/layout/manifest.json']]],
+            $plugin->getExtensionConfig('framework', [], $container)
+        );
+        static::assertSame(
+            [['assets' => ['json_manifest_path' => 'configured']]],
+            $plugin->getExtensionConfig('framework', [['assets' => ['json_manifest_path' => 'configured']]], $container)
         );
     }
 }

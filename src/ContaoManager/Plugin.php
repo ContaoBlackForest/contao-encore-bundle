@@ -60,16 +60,73 @@ final class Plugin implements BundlePluginInterface, ExtensionPluginInterface
      */
     public function getExtensionConfig($extensionName, array $extensionConfigs, ContainerBuilder $container): array
     {
-        if ('webpack_encore' !== $extensionName || !empty($extensionConfigs)) {
+        $extensionConfigs = $this->predefineWebPackOutputPath($extensionName, $extensionConfigs);
+        $extensionConfigs = $this->predefineJsonManifestPath($extensionName, $extensionConfigs);
+
+        return $extensionConfigs;
+    }
+
+    /**
+     * Predefine the webpack output, if is not configure.
+     *
+     * @param string $extensionName    The extension name.
+     * @param array  $extensionConfigs The extension configuration.
+     *
+     * @return array
+     */
+    private function predefineWebPackOutputPath(string $extensionName, array $extensionConfigs): array
+    {
+        if ('webpack_encore' !== $extensionName) {
             return $extensionConfigs;
         }
 
-        $extensionConfigs = [
-            [
-                'output_path' => '%kernel.project_dir%/web/layout'
-            ]
-        ];
+        $addOutputPath = true;
+        foreach ($extensionConfigs as $config) {
+            if (!isset($config['output_path'])) {
+                $addOutputPath = true;
+                continue;
+            }
 
+            $addOutputPath = false;
+            break;
+        }
+        if (false === $addOutputPath) {
+            return $extensionConfigs;
+        }
+
+        $extensionConfigs[] = ['output_path' => '%kernel.project_dir%/web/layout'];
+        return $extensionConfigs;
+    }
+
+    /**
+     * Predefine the framework asset json path, if is not configure.
+     *
+     * @param string $extensionName    The extension name.
+     * @param array  $extensionConfigs The extension configuration.
+     *
+     * @return array
+     */
+    private function predefineJsonManifestPath(string $extensionName, array $extensionConfigs): array
+    {
+        if ('framework' !== $extensionName) {
+            return $extensionConfigs;
+        }
+
+        $addJsonManifestPath = true;
+        foreach ($extensionConfigs as $config) {
+            if (!isset($config['assets']['json_manifest_path'])) {
+                $addJsonManifestPath = true;
+                continue;
+            }
+
+            $addJsonManifestPath = false;
+            break;
+        }
+        if (false === $addJsonManifestPath) {
+            return $extensionConfigs;
+        }
+
+        $extensionConfigs[]['assets']['json_manifest_path'] = '%kernel.project_dir%/web/layout/manifest.json';
         return $extensionConfigs;
     }
 }
