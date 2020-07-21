@@ -74,10 +74,7 @@ class EncoreContextOptionsListener
 
         $options = [[]];
         foreach (\array_keys($this->builds) as $buildKey) {
-            if (!$this->cache->getItem($buildKey)->get()) {
-                // Warm up the cache if is not exists.
-                $this->cacheWarmUp($this->builds[$buildKey], $this->cache, $buildKey);
-            }
+            $this->cacheWarmUp($this->builds[$buildKey], $this->cache, $buildKey);
 
             if (!($config = $this->cache->getItem($buildKey)->get())
                 || !\array_key_exists('entrypoints', $config)
