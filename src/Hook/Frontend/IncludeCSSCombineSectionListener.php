@@ -35,5 +35,5 @@ final class IncludeCSSCombineSectionListener extends AbstractIncludeSection impl
      *
      * @var string
      */
-    protected $includeSectionName = EncoreConstants::SECTION_USERCSS;
+    protected $includeSectionName = EncoreConstants::SECTION_USER_CSS;
 }

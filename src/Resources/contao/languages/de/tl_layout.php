@@ -41,7 +41,7 @@ $GLOBALS['TL_LANG']['tl_layout']['encoreInsertMode'][1] = 'Hier können Sie eins
  * Field options
  */
 $GLOBALS['TL_LANG']['tl_layout']['encoreContext']['options']    = [
-    EncoreConstants::SECTION_USERCSS    => 'CSS kombinierter Bereich',
+    EncoreConstants::SECTION_USER_CSS   => 'CSS kombinierter Bereich',
     EncoreConstants::SECTION_JAVASCRIPT => 'Javascript kombinierter Bereich',
     EncoreConstants::SECTION_JQUERY     => 'JQuery Bereich',
     EncoreConstants::SECTION_MOOTOOLS   => 'MooTools Bereich',

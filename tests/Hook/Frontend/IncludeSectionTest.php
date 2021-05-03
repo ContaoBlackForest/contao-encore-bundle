@@ -307,7 +307,7 @@ class IncludeSectionTest extends TestCase
                         'insertMode' => EncoreConstants::PREPEND
                     ],
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::app::css',
                         'insertMode' => EncoreConstants::APPEND
                     ]
@@ -379,32 +379,32 @@ class IncludeSectionTest extends TestCase
                 [],
                 [
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => 'app::css',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => 'app::js',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_not_exist::app::css',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_not_exist::app::js',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_no_build_key::app::css',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_no_build_key::app::js',
                         'insertMode' => EncoreConstants::APPEND
                     ]
@@ -421,12 +421,12 @@ class IncludeSectionTest extends TestCase
                 ],
                 [
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::app::css',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::app::js',
                         'insertMode' => EncoreConstants::APPEND
                     ]
@@ -443,12 +443,12 @@ class IncludeSectionTest extends TestCase
                 ],
                 [
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::app-dev::css',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::app-dev::js',
                         'insertMode' => EncoreConstants::APPEND
                     ]
@@ -462,12 +462,12 @@ class IncludeSectionTest extends TestCase
                 [],
                 [
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::other_entry::css',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::other_entry::js',
                         'insertMode' => EncoreConstants::APPEND
                     ]
@@ -484,22 +484,22 @@ class IncludeSectionTest extends TestCase
                 ],
                 [
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::app::css',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::app::js',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::app::css',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::other_entry::js',
                         'insertMode' => EncoreConstants::APPEND
                     ]
@@ -516,22 +516,22 @@ class IncludeSectionTest extends TestCase
                 ],
                 [
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::app::css',
                         'insertMode' => EncoreConstants::PREPEND
                     ],
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::app::js',
                         'insertMode' => EncoreConstants::PREPEND
                     ],
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::app::css',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::other_entry::js',
                         'insertMode' => EncoreConstants::APPEND
                     ]
@@ -548,22 +548,22 @@ class IncludeSectionTest extends TestCase
                 ],
                 [
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::app::css',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::app::js',
                         'insertMode' => EncoreConstants::APPEND
                     ],
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::app::css',
                         'insertMode' => EncoreConstants::PREPEND
                     ],
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::other_entry::js',
                         'insertMode' => EncoreConstants::PREPEND
                     ]
@@ -605,7 +605,7 @@ class IncludeSectionTest extends TestCase
                         'insertMode' => EncoreConstants::PREPEND
                     ],
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::app::css',
                         'insertMode' => EncoreConstants::APPEND
                     ]
@@ -655,7 +655,7 @@ class IncludeSectionTest extends TestCase
         }
 
         self::assertSame($expected, $GLOBALS['TL_USER_CSS']);
-        self::assertSame('TL_USER_CSS', EncoreConstants::SECTION_USERCSS);
+        self::assertSame('TL_USER_CSS', EncoreConstants::SECTION_USER_CSS);
 
         unset($GLOBALS['TL_USER_CSS']);
     }
@@ -907,7 +907,7 @@ class IncludeSectionTest extends TestCase
                         'insertMode' => EncoreConstants::PREPEND
                     ],
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::app::css',
                         'insertMode' => EncoreConstants::APPEND
                     ]
@@ -1201,7 +1201,7 @@ class IncludeSectionTest extends TestCase
                         'insertMode' => EncoreConstants::PREPEND
                     ],
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::app::css',
                         'insertMode' => EncoreConstants::APPEND
                     ]
@@ -1498,7 +1498,7 @@ class IncludeSectionTest extends TestCase
                         'insertMode' => EncoreConstants::PREPEND
                     ],
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::app::css',
                         'insertMode' => EncoreConstants::APPEND
                     ]
@@ -1795,7 +1795,7 @@ class IncludeSectionTest extends TestCase
                         'insertMode' => EncoreConstants::PREPEND
                     ],
                     [
-                        'section'    => EncoreConstants::SECTION_USERCSS,
+                        'section'    => EncoreConstants::SECTION_USER_CSS,
                         'context'    => '_default::app::css',
                         'insertMode' => EncoreConstants::APPEND
                     ]

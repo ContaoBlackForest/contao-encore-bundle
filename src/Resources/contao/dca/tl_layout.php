@@ -85,7 +85,7 @@ $GLOBALS['TL_DCA']['tl_layout']['fields'] = array_merge(
                         'exclude'          => true,
                         'inputType'        => 'select',
                         'options'          => [
-                            EncoreConstants::SECTION_USERCSS,
+                            EncoreConstants::SECTION_USER_CSS,
                             EncoreConstants::SECTION_JAVASCRIPT,
                             EncoreConstants::SECTION_JQUERY,
                             EncoreConstants::SECTION_MOOTOOLS,
