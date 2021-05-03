@@ -1,7 +1,7 @@
 services:
-    BlackForest\Contao\Encore\Callback\Table\Layout\EncoreContextOptionsListener:
-        public: true
-        arguments:
-            # This argument where set with the add arguments pass and comes from webpack_encore.entrypoint_lookup.cache_warmer.
-            $builds: ''
-            $cache: "@webpack_encore.cache"
+  BlackForest\Contao\Encore\Callback\Table\Layout\EncoreContextOptionsListener:
+    public: true
+    arguments:
+      # This argument where set with the add arguments pass and comes from webpack_encore.entrypoint_lookup.cache_warmer.
+      $builds: ''
+      $cache: "@webpack_encore.cache"
