@@ -37,7 +37,6 @@ final class BlackForestContaoEncoreExtension extends Extension
     public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new YamlFileLoader($container, new FileLocator(\dirname(__DIR__) . '/Resources/config'));
-        $loader->load('frontend/hook.yml');
-        $loader->load('table/callback.yml');
+        $loader->load('services.yml');
     }
 }
