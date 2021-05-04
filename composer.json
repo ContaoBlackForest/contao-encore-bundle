@@ -47,7 +47,8 @@
         "php-http/mock-client": "^1.0",
         "doctrine/dbal": "^2.5",
         "phpcq/all-tasks": "^1.2",
-        "psr/container": "^1.0"
+        "psr/container": "^1.0",
+        "blackforest/symfony-favicons-webpack-bundle": "dev-master"
     },
     "autoload": {
         "psr-4": {
@@ -65,5 +66,8 @@
             "dev-master": "1.0.x-dev",
             "dev-develop": "1.1.x-dev"
         }
+    },
+    "suggest": {
+        "blackforest/symfony-favicons-webpack-bundle": "Needed to use the favicons webpack plugin"
     }
 }
