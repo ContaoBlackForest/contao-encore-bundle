@@ -47,7 +47,6 @@
         "php-http/mock-client": "^1.0",
         "doctrine/dbal": "^2.5",
         "phpcq/all-tasks": "^1.2",
-        "phpunit/phpunit": "^7.5 || ^8.4",
         "psr/container": "^1.0"
     },
     "autoload": {
