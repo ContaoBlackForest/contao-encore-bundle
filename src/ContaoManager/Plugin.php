@@ -22,6 +22,7 @@ declare(strict_types=1);
 namespace BlackForest\Contao\Encore\ContaoManager;
 
 use BlackForest\Contao\Encore\BlackForestContaoEncoreBundle;
+use BlackForest\Symfony\WebpackEncoreBundle\FaviconsWebpackBundle;
 use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
@@ -43,11 +44,13 @@ final class Plugin implements BundlePluginInterface, ExtensionPluginInterface
     {
         return [
             BundleConfig::create(WebpackEncoreBundle::class)->setLoadAfter([FrameworkBundle::class]),
+            BundleConfig::create(FaviconsWebpackBundle::class)->setLoadAfter([FrameworkBundle::class]),
             BundleConfig::create(BlackForestContaoEncoreBundle::class)
                 ->setLoadAfter(
                     [
                         ContaoCoreBundle::class,
-                        WebpackEncoreBundle::class
+                        WebpackEncoreBundle::class,
+                        FaviconsWebpackBundle::class
                     ]
                 )
         ];
