@@ -65,6 +65,7 @@ final class Plugin implements BundlePluginInterface, ExtensionPluginInterface
     {
         $extensionConfigs = $this->predefineWebPackOutputPath($extensionName, $extensionConfigs);
         $extensionConfigs = $this->predefineJsonManifestPath($extensionName, $extensionConfigs);
+        $extensionConfigs = $this->predefineFaviconsPath($extensionName, $extensionConfigs);
 
         return $extensionConfigs;
     }
@@ -130,6 +131,38 @@ final class Plugin implements BundlePluginInterface, ExtensionPluginInterface
         }
 
         $extensionConfigs[]['assets']['json_manifest_path'] = '%kernel.project_dir%/web/layout/manifest.json';
+        return $extensionConfigs;
+    }
+
+    /**
+     * Predefine the favicons path, if is not configure.
+     *
+     * @param string $extensionName    The extension name.
+     * @param array  $extensionConfigs The extension configuration.
+     *
+     * @return array
+     */
+    private function predefineFaviconsPath(string $extensionName, array $extensionConfigs): array
+    {
+        if ('favicons_webpack' !== $extensionName) {
+            return $extensionConfigs;
+        }
+
+        $addFaviconsPath = true;
+        foreach ($extensionConfigs as $config) {
+            if (!isset($config['favicons'])) {
+                $addFaviconsPath = true;
+                continue;
+            }
+
+            $addFaviconsPath = false;
+            break;
+        }
+        if (false === $addFaviconsPath) {
+            return $extensionConfigs;
+        }
+
+        $extensionConfigs[]['favicons']['app'] = '%kernel.project_dir%/web/layout/favicons.html';
         return $extensionConfigs;
     }
 }
