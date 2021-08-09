@@ -11,7 +11,7 @@ This Bundle provide the Symfony Webpack Encore for Contao.
 It is preconfigured for the webpack encore extension. If you use own things, so overwrite it in your project.
 
 The pre configuration for the extension is:
-```yml
+```yaml
 webpack_encore:
     output_path: '%kernel.project_dir%/web/layout'
 
@@ -31,7 +31,34 @@ System::getContainer()->get('contao-webpack-encore')->asset('web/layout/tinymce.
 $this->asset('web/layout/tinymce.css');
 ```
 
-Use in Contao
--------------
+Use Encore in Contao
+--------------------
 
 In Contao you can add your sources in the page layout.
+
+
+Favicons webpack plugin
+-----------------------
+
+This bundle also supports the Favicons Webpack plugin.
+
+Install `blackforest/symfony-favicons-webpack-bundle`.
+```json
+{
+  "require": {
+    ...
+    "blackforest/symfony-favicons-webpack-bundle": "^1.0"
+  }
+}
+```
+
+The extension favicons_webpack is preconfigured.  If you use own things, so overwrite it in your project.
+```yaml
+favicons_webpack:
+    app: '%kernel.project_dir%/web/layout/favicons.html'
+```
+
+Use Favicons in Contao
+--------------------
+
+In Contao you can add your favicons by the root page.
