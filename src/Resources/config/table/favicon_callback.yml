@@ -1,0 +1,5 @@
+services:
+  BlackForest\Contao\Encore\Callback\Table\Page\FaviconConfigOptionsListener:
+    public: true
+    arguments:
+      $cacheKeys: ~ # This argument where set with the add arguments pass and comes from \BlackForest\Symfony\WebpackEncoreBundle\CacheWarmer\FaviconsCacheWarmer.

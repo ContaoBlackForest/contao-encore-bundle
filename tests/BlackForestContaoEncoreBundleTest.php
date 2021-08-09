@@ -22,7 +22,7 @@ declare(strict_types=1);
 namespace BlackForest\Contao\Encore\Test;
 
 use BlackForest\Contao\Encore\BlackForestContaoEncoreBundle;
-use BlackForest\Contao\Encore\DependencyInjection\Compiler\AddArgumentsPass;
+use BlackForest\Contao\Encore\DependencyInjection\Compiler\AddWebpackArgumentsPass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -40,7 +40,7 @@ class BlackForestContaoEncoreBundleTest extends TestCase
             ->expects($this->once())
             ->method('addCompilerPass')
             ->withConsecutive(
-                [$this->isInstanceOf(AddArgumentsPass::class), PassConfig::TYPE_BEFORE_OPTIMIZATION]
+                [$this->isInstanceOf(AddWebpackArgumentsPass::class), PassConfig::TYPE_BEFORE_OPTIMIZATION]
             )
             ->willReturn($container);
 

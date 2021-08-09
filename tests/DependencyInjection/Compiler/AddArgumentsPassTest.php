@@ -22,7 +22,7 @@ declare(strict_types=1);
 namespace BlackForest\Contao\Encore\Test\DependencyInjection\Compiler;
 
 use BlackForest\Contao\Encore\DependencyInjection\BlackForestContaoEncoreExtension;
-use BlackForest\Contao\Encore\DependencyInjection\Compiler\AddArgumentsPass;
+use BlackForest\Contao\Encore\DependencyInjection\Compiler\AddWebpackArgumentsPass;
 use BlackForest\Contao\Encore\Callback\Table\Layout\EncoreContextOptionsListener;
 use BlackForest\Contao\Encore\Hook\Frontend\AbstractIncludeSection;
 use PHPUnit\Framework\TestCase;
@@ -30,7 +30,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\WebpackEncoreBundle\DependencyInjection\WebpackEncoreExtension;
 
 /**
- * @covers \BlackForest\Contao\Encore\DependencyInjection\Compiler\AddArgumentsPass
+ * @covers \BlackForest\Contao\Encore\DependencyInjection\Compiler\AddWebpackArgumentsPass
  */
 class AddArgumentsPassTest extends TestCase
 {
@@ -45,7 +45,7 @@ class AddArgumentsPassTest extends TestCase
         $extension = new BlackForestContaoEncoreExtension();
         $extension->load([], $container);
 
-        $compiler = new AddArgumentsPass();
+        $compiler = new AddWebpackArgumentsPass();
         $compiler->process($container);
 
         $expected = [

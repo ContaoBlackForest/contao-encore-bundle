@@ -21,7 +21,9 @@ declare(strict_types=1);
 
 namespace BlackForest\Contao\Encore;
 
-use BlackForest\Contao\Encore\DependencyInjection\Compiler\AddArgumentsPass;
+use BlackForest\Contao\Encore\DependencyInjection\Compiler\AddFaviconArgumentsPass;
+use BlackForest\Contao\Encore\DependencyInjection\Compiler\AddWebpackArgumentsPass;
+use BlackForest\Symfony\WebpackEncoreBundle\FaviconsWebpackBundle;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -38,6 +40,10 @@ class BlackForestContaoEncoreBundle extends Bundle
     {
         parent::build($container);
 
-        $container->addCompilerPass(new AddArgumentsPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION);
+        $container->addCompilerPass(new AddWebpackArgumentsPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION);
+
+        if (\in_array(FaviconsWebpackBundle::class, $container->getParameter('kernel.bundles'), true)) {
+            $container->addCompilerPass(new AddFaviconArgumentsPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION);
+        }
     }
 }
