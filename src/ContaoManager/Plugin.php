@@ -94,7 +94,7 @@ final class Plugin implements BundlePluginInterface, ExtensionPluginInterface
             return $extensionConfigs;
         }
 
-        $extensionConfigs[] = ['output_path' => '%kernel.project_dir%/web/layout'];
+        $extensionConfigs[] = ['output_path' => '%kernel.project_dir%/public/layout'];
         return $extensionConfigs;
     }
 
@@ -126,7 +126,7 @@ final class Plugin implements BundlePluginInterface, ExtensionPluginInterface
             return $extensionConfigs;
         }
 
-        $extensionConfigs[]['assets']['json_manifest_path'] = '%kernel.project_dir%/web/layout/manifest.json';
+        $extensionConfigs[]['assets']['json_manifest_path'] = '%kernel.project_dir%/public/layout/manifest.json';
         return $extensionConfigs;
     }
 }
