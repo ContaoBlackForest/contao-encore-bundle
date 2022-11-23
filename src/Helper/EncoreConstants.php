@@ -25,8 +25,6 @@ namespace BlackForest\Contao\Encore\Helper;
 class EncoreConstants
 {
     public const SECTION_USER_CSS   = 'TL_USER_CSS';
-    /** \BlackForest\Contao\Encore\Helper\EncoreConstants::SECTION_USERCSS is depracted an where removed in 2.0. */
-    public const SECTION_USERCSS    = self::SECTION_USER_CSS;
     public const SECTION_JAVASCRIPT = 'TL_JAVASCRIPT';
     public const SECTION_JQUERY     = 'TL_JQUERY';
     public const SECTION_MOOTOOLS   = 'TL_MOOTOOLS';
